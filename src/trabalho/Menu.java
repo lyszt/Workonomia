@@ -4,9 +4,13 @@
  */
 package trabalho;
 
+import Sound.SoundPlayer;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+
+import Sound.SoundPlayer;
+
 
 /**
  *
@@ -19,6 +23,8 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        System.out.println(System.getProperty("user.dir"));
+        SoundPlayer.playSound("./src/trabalho/resources/audio/menu.wav");
     }
 
     private void buttonAnimation(JButton targetButton, String filename){
