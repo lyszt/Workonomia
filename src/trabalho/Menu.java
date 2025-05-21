@@ -21,6 +21,16 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
     }
 
+    private void buttonAnimation(JButton targetButton, String filename){
+        String pressedPath = ("/trabalho/resources/buttons/" + filename + "_pressed.png");
+        String buttonPath = ("/trabalho/resources/buttons/" + filename + ".png");
+        targetButton.setIcon(new ImageIcon(getClass().getResource(pressedPath)));
+        Timer timer = new Timer(100, e -> {
+            targetButton.setIcon(new ImageIcon(getClass().getResource(buttonPath)));
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,22 +42,24 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        leaveButton = new javax.swing.JButton();
+        creditButton = new javax.swing.JButton();
         startButton = new javax.swing.JButton();
+        leaveButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setBackground(new java.awt.Color(0,0,0,50)
+        );
 
-        leaveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/leave.png"))); // NOI18N
-        leaveButton.setBorder(null);
-        leaveButton.setContentAreaFilled(false);
-        leaveButton.addActionListener(new java.awt.event.ActionListener() {
+        creditButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/creditos.png"))); // NOI18N
+        creditButton.setBorder(null);
+        creditButton.setContentAreaFilled(false);
+        creditButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                leaveButtonActionPerformed(evt);
+                creditButtonActionPerformed(evt);
             }
         });
 
@@ -60,26 +72,39 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        leaveButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/leave.png"))); // NOI18N
+        leaveButton1.setBorder(null);
+        leaveButton1.setContentAreaFilled(false);
+        leaveButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                leaveButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
-                .addComponent(leaveButton)
-                .addGap(48, 48, 48))
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(creditButton, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addComponent(leaveButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(69, Short.MAX_VALUE)
+                    .addContainerGap(47, Short.MAX_VALUE)
                     .addComponent(startButton)
                     .addGap(49, 49, 49)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(102, 102, 102)
-                .addComponent(leaveButton)
-                .addContainerGap(300, Short.MAX_VALUE))
+                .addGap(107, 107, 107)
+                .addComponent(creditButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(leaveButton1)
+                .addContainerGap(232, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(44, 44, 44)
@@ -92,7 +117,7 @@ public class Menu extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(446, Short.MAX_VALUE)
+                .addContainerGap(603, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37))
         );
@@ -119,26 +144,20 @@ public class Menu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void leaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leaveButtonActionPerformed
+    private void creditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditButtonActionPerformed
         //  ImageIcon(getClass().getResource("/trabalho/resources/buttons/start.png")
-        leaveButton.setIcon(new ImageIcon(getClass().getResource("/trabalho/resources/buttons/leave_pressed.png")));
-        Timer timer = new Timer(100, e -> {
-            leaveButton.setIcon(new ImageIcon(getClass().getResource("/trabalho/resources/buttons/leave.png")));
-            System.exit(0);
-        });
-        timer.setRepeats(false);
-        timer.start();
+        buttonAnimation(creditButton, "creditos");
         
-    }//GEN-LAST:event_leaveButtonActionPerformed
+    }//GEN-LAST:event_creditButtonActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        startButton.setIcon(new ImageIcon(getClass().getResource("/trabalho/resources/buttons/start_pressed.png")));
-        Timer timer = new Timer(100, e -> {
-            startButton.setIcon(new ImageIcon(getClass().getResource("/trabalho/resources/buttons/start.png")));
-        });
-        timer.setRepeats(false);
-        timer.start();
+        buttonAnimation(startButton, "start");
     }//GEN-LAST:event_startButtonActionPerformed
+
+    private void leaveButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leaveButton1ActionPerformed
+        buttonAnimation(creditButton, "leave");
+        System.exit(0);
+    }//GEN-LAST:event_leaveButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,9 +195,10 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton creditButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton leaveButton;
+    private javax.swing.JButton leaveButton1;
     private javax.swing.JButton startButton;
     // End of variables declaration//GEN-END:variables
 }
