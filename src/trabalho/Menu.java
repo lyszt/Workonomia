@@ -9,7 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-import Sound.SoundPlayer;
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -20,11 +22,34 @@ public class Menu extends javax.swing.JFrame {
 
     /**
      * Creates new form Menu
+     * 
+     * 
+     * 
      */
+    private Clip backgroundClip;
+    
+    public void playBackgroundMusic(String filename) {
+        try {
+            AudioInputStream audioInput = AudioSystem.getAudioInputStream(new File(filename));
+            backgroundClip = AudioSystem.getClip();
+            backgroundClip.open(audioInput);
+            backgroundClip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopBackgroundMusic() {
+        if (backgroundClip != null && backgroundClip.isRunning()) {
+            backgroundClip.stop();
+            backgroundClip.close();
+        }
+    }
+    
     public Menu() {
         initComponents();
         System.out.println(System.getProperty("user.dir"));
-        SoundPlayer.playSound("./src/trabalho/resources/audio/menu.wav");
+        playBackgroundMusic("./src/trabalho/resources/audio/menu.wav");
     }
 
     private void buttonAnimation(JButton targetButton, String filename){
@@ -50,17 +75,20 @@ public class Menu extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         creditButton = new javax.swing.JButton();
         startButton = new javax.swing.JButton();
-        leaveButton1 = new javax.swing.JButton();
+        leaveButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel1.setBackground(new java.awt.Color(235, 235, 235));
 
         jPanel2.setBackground(new java.awt.Color(0,0,0,50)
         );
 
+        creditButton.setBackground(new java.awt.Color(0,0,0,50)
+        );
+        creditButton.setForeground(null);
         creditButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/creditos.png"))); // NOI18N
         creditButton.setBorder(null);
         creditButton.setContentAreaFilled(false);
@@ -70,6 +98,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        startButton.setBackground(new java.awt.Color(0,0,0,50)
+        );
+        startButton.setForeground(null);
         startButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/start.png"))); // NOI18N
         startButton.setBorder(null);
         startButton.setContentAreaFilled(false);
@@ -79,12 +110,15 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        leaveButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/leave.png"))); // NOI18N
-        leaveButton1.setBorder(null);
-        leaveButton1.setContentAreaFilled(false);
-        leaveButton1.addActionListener(new java.awt.event.ActionListener() {
+        leaveButton.setBackground(new java.awt.Color(0,0,0,50)
+        );
+        leaveButton.setForeground(null);
+        leaveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/leave.png"))); // NOI18N
+        leaveButton.setBorder(null);
+        leaveButton.setContentAreaFilled(false);
+        leaveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                leaveButton1ActionPerformed(evt);
+                leaveButtonActionPerformed(evt);
             }
         });
 
@@ -96,7 +130,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(44, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(creditButton, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                    .addComponent(leaveButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(leaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(44, 44, 44))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -110,7 +144,7 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(107, 107, 107)
                 .addComponent(creditButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(leaveButton1)
+                .addComponent(leaveButton)
                 .addContainerGap(232, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
@@ -167,12 +201,16 @@ public class Menu extends javax.swing.JFrame {
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         buttonAnimation(startButton, "start");
+        stopBackgroundMusic();
+        this.dispose();
+        JFrame Game = new Game();
+        Game.setVisible(true);
     }//GEN-LAST:event_startButtonActionPerformed
 
-    private void leaveButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leaveButton1ActionPerformed
-        buttonAnimation(creditButton, "leave");
+    private void leaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leaveButtonActionPerformed
+        buttonAnimation(leaveButton, "leave");
         System.exit(0);
-    }//GEN-LAST:event_leaveButton1ActionPerformed
+    }//GEN-LAST:event_leaveButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,7 +252,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton leaveButton1;
+    private javax.swing.JButton leaveButton;
     private javax.swing.JButton startButton;
     // End of variables declaration//GEN-END:variables
 }
