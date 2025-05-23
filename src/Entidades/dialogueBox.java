@@ -19,12 +19,14 @@ public class dialogueBox extends javax.swing.JPanel {
     int dialogueIndex;
     String speaker;
     String soundPath;
+    int skippable;
     
     /**
      * Creates new form dialogueBox
      */
-    public dialogueBox(String speaker, String first_dialogue) {
+    public dialogueBox(String speaker, String first_dialogue, int skippable) {
         this.speaker = speaker;
+        this.skippable = skippable;
         this.dialogues = new ArrayList<String>();
         initComponents();
         this.dialogues.add(first_dialogue);
@@ -134,6 +136,7 @@ public class dialogueBox extends javax.swing.JPanel {
         nextDialogButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         dialogueField = new javax.swing.JTextArea();
+        skipButton = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -161,6 +164,13 @@ public class dialogueBox extends javax.swing.JPanel {
         dialogueField.setFocusable(false);
         jScrollPane2.setViewportView(dialogueField);
 
+        skipButton.setText("Pular");
+        skipButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                skipButtonpassDialogue(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -168,7 +178,10 @@ public class dialogueBox extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nextDialogButton)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(skipButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(nextDialogButton))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(authorIcon)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -191,7 +204,9 @@ public class dialogueBox extends javax.swing.JPanel {
                         .addGap(0, 22, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addGap(18, 18, 18)
-                .addComponent(nextDialogButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nextDialogButton)
+                    .addComponent(skipButton))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -200,6 +215,16 @@ public class dialogueBox extends javax.swing.JPanel {
         passDialogue();
     }//GEN-LAST:event_passDialogue
 
+    private void skipButtonpassDialogue(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skipButtonpassDialogue
+        if(this.skippable == 1){
+        java.awt.Container parent = this.getParent(); 
+            if (parent != null) { 
+                parent.remove(this); 
+                parent.revalidate(); 
+                parent.repaint(); 
+            }
+    }//GEN-LAST:event_skipButtonpassDialogue
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel authorIcon;
@@ -209,5 +234,6 @@ public class dialogueBox extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton nextDialogButton;
+    private javax.swing.JButton skipButton;
     // End of variables declaration//GEN-END:variables
 }

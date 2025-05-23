@@ -33,6 +33,13 @@ public abstract class Profession {
     public void setPlace(String place) {
         this.place = place;
     }
+
+    @Override
+    public String toString() {
+        return profession;
+    }
+    
+    
     
     
     public abstract String doJobActivity();
