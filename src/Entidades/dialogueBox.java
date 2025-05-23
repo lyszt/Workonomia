@@ -26,9 +26,7 @@ public class dialogueBox extends javax.swing.JPanel {
         this.dialogues.add(first_dialogue);
         dialogueField.setText(first_dialogue);
         characterName.setText(speaker);
-        
-        this.setVisible(true);
-    }
+       }
     public void setAuthorIcon(String path){
         authorIcon.setIcon(new ImageIcon(path));
     }
@@ -45,9 +43,13 @@ public class dialogueBox extends javax.swing.JPanel {
     public int getDialogueIndex(){
         return dialogueIndex;
     }
-    public void passDialogue(){
-        this.dialogueIndex = (dialogueIndex + 1) % dialogues.size();
+    public int passDialogue(){
+        this.dialogueIndex = (dialogueIndex + 1);
+        if(dialogueIndex > dialogues.size()){
+            return 0;
+        }
         dialogueField.setText(dialogues.get(dialogueIndex));
+        return 1;
     }
     public String getCurrentDialogue(){
         return dialogues.get(dialogueIndex);
@@ -84,6 +86,11 @@ public class dialogueBox extends javax.swing.JPanel {
         });
 
         nextDialogButton.setText("Próximo");
+        nextDialogButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passDialogue(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -119,6 +126,18 @@ public class dialogueBox extends javax.swing.JPanel {
     private void dialogueFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dialogueFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dialogueFieldActionPerformed
+
+    private void passDialogue(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passDialogue
+        if(passDialogue() == 0){
+            java.awt.Container parent = this.getParent(); 
+
+            if (parent != null) { 
+                parent.remove(this); 
+                parent.revalidate(); 
+                parent.repaint();    
+            }
+        }
+    }//GEN-LAST:event_passDialogue
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

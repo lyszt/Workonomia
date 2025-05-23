@@ -32,8 +32,18 @@ public class Game extends javax.swing.JFrame {
         moneyLabel.setText(player.getMoney()+" R$");
         employeeLabel.setText(player.getEmployees().size() + " empregados");
         
-        // start tutorial
-        dialogueBox tutorial = new dialogueBox("Jombson", "Ah, você está em busca de oportunidades?");
+        // start tutorial,
+        dialogueBox tutorial = new dialogueBox("Jombson", "Ah, você está em busca de oportunidades?"); 
+        tutorial.addDialogue("O meu nome é Jombson. Vou te ajudar a sair da sua situação e ficar rico. Te fazer um milionário.");
+        tutorial.setSize(tutorial.getPreferredSize()); 
+        dialoguePane.add(tutorial, JLayeredPane.PALETTE_LAYER);
+       int x = (dialoguePane.getWidth() - tutorial.getWidth()) / 2;
+       int y = (dialoguePane.getHeight() - tutorial.getHeight()) / 2;
+       tutorial.setLocation(x, y);
+
+        tutorial.setVisible(true); 
+        this.revalidate();
+        this.repaint();    
    
         
     }
@@ -64,6 +74,7 @@ public class Game extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         moneyLabel = new javax.swing.JLabel();
         workButton = new javax.swing.JButton();
+        dialoguePane = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("playerMoney");
@@ -87,6 +98,15 @@ public class Game extends javax.swing.JFrame {
         moneyLabel.setForeground(new java.awt.Color(0, 204, 204));
         moneyLabel.setText("00.00 R$");
 
+        workButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/work.png"))); // NOI18N
+        workButton.setBorder(null);
+        workButton.setContentAreaFilled(false);
+        workButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                workButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -102,7 +122,10 @@ public class Game extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(employeeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(employeeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(workButton)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -118,17 +141,21 @@ public class Game extends javax.swing.JFrame {
                     .addComponent(employeeLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(436, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 319, Short.MAX_VALUE)
+                .addComponent(workButton)
+                .addGap(21, 21, 21))
         );
 
-        workButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/work.png"))); // NOI18N
-        workButton.setBorder(null);
-        workButton.setContentAreaFilled(false);
-        workButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                workButtonActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout dialoguePaneLayout = new javax.swing.GroupLayout(dialoguePane);
+        dialoguePane.setLayout(dialoguePaneLayout);
+        dialoguePaneLayout.setHorizontalGroup(
+            dialoguePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 741, Short.MAX_VALUE)
+        );
+        dialoguePaneLayout.setVerticalGroup(
+            dialoguePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 214, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,17 +164,17 @@ public class Game extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(workButton)
-                .addContainerGap(833, Short.MAX_VALUE))
+                .addGap(159, 159, 159)
+                .addComponent(dialoguePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(workButton)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dialoguePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 44, Short.MAX_VALUE))
         );
 
@@ -199,6 +226,7 @@ public class Game extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLayeredPane dialoguePane;
     private javax.swing.JLabel employeeLabel;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
