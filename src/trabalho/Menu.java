@@ -86,36 +86,48 @@ public class Menu extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0,0,0,50)
         );
 
-        creditButton.setBackground(new java.awt.Color(0,0,0,50)
-        );
+        creditButton.setBackground(null);
         creditButton.setForeground(null);
         creditButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/creditos.png"))); // NOI18N
         creditButton.setBorder(null);
-        creditButton.setContentAreaFilled(false);
+        creditButton.setBorderPainted(false);
+        creditButton.setFocusPainted(false);
+        creditButton.setFocusable(false);
+        creditButton.setOpaque(false);
+        creditButton.setRequestFocusEnabled(false);
+        creditButton.setRolloverEnabled(false);
         creditButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 creditButtonActionPerformed(evt);
             }
         });
 
-        startButton.setBackground(new java.awt.Color(0,0,0,50)
-        );
+        startButton.setBackground(null);
         startButton.setForeground(null);
         startButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/start.png"))); // NOI18N
         startButton.setBorder(null);
+        startButton.setBorderPainted(false);
         startButton.setContentAreaFilled(false);
+        startButton.setFocusPainted(false);
+        startButton.setFocusable(false);
+        startButton.setRequestFocusEnabled(false);
+        startButton.setRolloverEnabled(false);
         startButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startButtonActionPerformed(evt);
             }
         });
 
-        leaveButton.setBackground(new java.awt.Color(0,0,0,50)
-        );
+        leaveButton.setBackground(null);
         leaveButton.setForeground(null);
         leaveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/leave.png"))); // NOI18N
         leaveButton.setBorder(null);
-        leaveButton.setContentAreaFilled(false);
+        leaveButton.setBorderPainted(false);
+        leaveButton.setFocusPainted(false);
+        leaveButton.setFocusable(false);
+        leaveButton.setOpaque(false);
+        leaveButton.setRequestFocusEnabled(false);
+        leaveButton.setRolloverEnabled(false);
         leaveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 leaveButtonActionPerformed(evt);
