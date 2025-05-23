@@ -28,9 +28,6 @@ public class dialogueBox extends javax.swing.JPanel {
         this.dialogues.add(first_dialogue);
         dialogueField.setText(first_dialogue);
         characterName.setText(speaker);
-        dialogues.get(dialogueIndex).chars().forEach((c) -> {
-            SoundPlayer.playSound(getSoundPath());
-        });
        }
     public void setAuthorIcon(String path){
         authorIcon.setIcon(new ImageIcon(path));
@@ -60,11 +57,14 @@ public class dialogueBox extends javax.swing.JPanel {
                 return;
             }
         }
-            
-        dialogues.get(dialogueIndex).chars().forEach((c) -> {
-            SoundPlayer.playSound(getSoundPath());
-        });
+        playVoice();
         dialogueField.setText(dialogues.get(dialogueIndex));
+    }
+    public void playVoice(){
+        int speechLength = dialogues.get(dialogueIndex).length();
+        for(int i = 0; i < speechLength / 3; i++) {
+            SoundPlayer.playSound(getSoundPath());
+        }
     }
     public String getCurrentDialogue(){
         return dialogues.get(dialogueIndex);
@@ -88,25 +88,21 @@ public class dialogueBox extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         authorIcon = new javax.swing.JLabel();
         characterName = new javax.swing.JLabel();
-        dialogueField = new javax.swing.JTextField();
         nextDialogButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        dialogueField = new javax.swing.JTextArea();
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         authorIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/circle.png"))); // NOI18N
 
         characterName.setText("Character name");
-
-        dialogueField.setEditable(false);
-        dialogueField.setText("Dialogue");
-        dialogueField.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        dialogueField.setFocusable(false);
-        dialogueField.setVerifyInputWhenFocusTarget(false);
-        dialogueField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dialogueFieldActionPerformed(evt);
-            }
-        });
 
         nextDialogButton.setText("Próximo");
         nextDialogButton.addActionListener(new java.awt.event.ActionListener() {
@@ -114,6 +110,16 @@ public class dialogueBox extends javax.swing.JPanel {
                 passDialogue(evt);
             }
         });
+
+        dialogueField.setEditable(false);
+        dialogueField.setBackground(new java.awt.Color(235, 235, 235));
+        dialogueField.setColumns(20);
+        dialogueField.setLineWrap(true);
+        dialogueField.setRows(5);
+        dialogueField.setWrapStyleWord(true);
+        dialogueField.setAutoscrolls(false);
+        dialogueField.setFocusable(false);
+        jScrollPane2.setViewportView(dialogueField);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -126,9 +132,11 @@ public class dialogueBox extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(authorIcon)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(characterName)
-                            .addComponent(dialogueField, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(characterName)
+                                .addGap(484, 484, 484))
+                            .addComponent(jScrollPane2))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -138,17 +146,15 @@ public class dialogueBox extends javax.swing.JPanel {
                 .addComponent(characterName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(authorIcon)
-                    .addComponent(dialogueField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(authorIcon)
+                        .addGap(0, 22, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addGap(18, 18, 18)
                 .addComponent(nextDialogButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void dialogueFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dialogueFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dialogueFieldActionPerformed
 
     private void passDialogue(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passDialogue
         passDialogue();
@@ -158,7 +164,10 @@ public class dialogueBox extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel authorIcon;
     private javax.swing.JLabel characterName;
-    private javax.swing.JTextField dialogueField;
+    private javax.swing.JTextArea dialogueField;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton nextDialogButton;
     // End of variables declaration//GEN-END:variables
 }

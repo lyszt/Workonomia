@@ -33,7 +33,8 @@ public class Game extends javax.swing.JFrame {
         employeeLabel.setText(player.getEmployees().size() + " empregados");
         
         // start tutorial,
-        dialogueBox tutorial = new dialogueBox("Jombson", "Ah, você está em busca de oportunidades?"); 
+        dialogueBox tutorial = new dialogueBox("Jombson", "Hm?");
+        tutorial.addDialogue("Ah, você está em busca de oportunidades?");
         tutorial.addDialogue("O meu nome é Jombson. Vou te ajudar a sair da sua situação e ficar rico. Te fazer um milionário.");
         tutorial.setSize(tutorial.getPreferredSize()); 
         tutorial.setSoundPath("./src/trabalho/resources/audio/jombson.wav");
@@ -43,6 +44,7 @@ public class Game extends javax.swing.JFrame {
        tutorial.setLocation(x, y);
 
         tutorial.setVisible(true); 
+        tutorial.playVoice();
         this.revalidate();
         this.repaint();    
    
