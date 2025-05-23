@@ -14,11 +14,13 @@ import java.util.ArrayList;
 public class Player {
     double money;
     String name;
+    Profession profession;
     ArrayList<Employee> employees = new ArrayList<Employee>();
 
-    public Player(double money, String name) {
+    public Player(double money, String name, Profession profession) {
         this.money = money;
         this.name = name;
+        this.profession = profession;
     }
 
     public double getMoney() {
@@ -52,6 +54,15 @@ public class Player {
         this.employees.add(employee);
     }
 
+    public Profession getProfession() {
+        return profession;
+    }
+
+    public void setProfession(Profession profession) {
+        this.profession = profession;
+    }
+
+    
     
     
     

@@ -4,6 +4,7 @@
  */
 package trabalho;
 
+import Entidades.Unemployed;
 import Sound.SoundPlayer;
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,6 @@ import java.awt.event.ActionListener;
 
 import Sound.SoundPlayer;
 import Entidades.*;
-
 /**
  *
  * @author joaoluis
@@ -27,27 +27,32 @@ public class Game extends javax.swing.JFrame {
         initComponents();
         System.out.println(System.getProperty("user.dir"));
         SoundPlayer.playSound("./src/trabalho/resources/audio/menu.wav");
-        String name = JOptionPane.showInputDialog(null, "Qual é seu nome?");
-        this.player = new Player(0, name);
+        String name = null;
+        do {
+            name = JOptionPane.showInputDialog(null, "Qual é seu nome?");
+        }
+        while(name == null);
+  
+        this.player = new Player(0, name, new Unemployed("farol"));
         moneyLabel.setText(player.getMoney()+" R$");
         employeeLabel.setText(player.getEmployees().size() + " empregados");
         
         // start tutorial,
        // start tutorial
-        dialogueBox tutorial = new dialogueBox("Jombson", "Hm?");
-        tutorial.addDialogue("Qual seu nome, garoto?");
-        tutorial.addDialogue(player.getName() + "?");
-        tutorial.addDialogue("Você. É... você mesmo. Tem cara de quem não tem nada a perder.");
-        tutorial.addDialogue("Sou Jombson. Visionário, magnata, gênio autoproclamado. E hoje, por puro capricho, decidi olhar na sua direção.");
-        tutorial.addDialogue("Não, você não trabalha pra mim. Isso seria um privilégio. Ainda não ganhado.");
-        tutorial.addDialogue("Mas eu gosto de apostar em causas quase perdidas. É mais divertido assim.");
-        tutorial.addDialogue("Ali na estrada tem um farol velho. Lixo urbano. Ideal pra quem ainda não tem o direito de ser exigente.");
-        tutorial.addDialogue("Vai até lá e venda água pros motoristas. Não me pergunte por quê — só faça.");
-        tutorial.addDialogue("Cada venda? 1 real. Pouco, mas mais do que você tem agora.");
-        tutorial.addDialogue("Clique em 'Trabalhar'. Me mostre que sabe obedecer instruções simples. Talvez eu me impressione.");
-        tutorial.addDialogue("Continue. Quem sabe um dia, se não for completamente inútil, eu deixo você participar de algo maior.");
-        tutorial.addDialogue("Mas por enquanto, cale-se e venda. Toda jornada começa com alguém se humilhando por moedas.");
-
+        dialogueBox tutorial = new dialogueBox("Jombson", "(Jombson te encara de cima a baixo, um suspiro quase inaudível escapa.) ... O que foi?");
+        tutorial.addDialogue("Qual é o seu nome, garoto? Anda, não tenho o dia todo.");
+        tutorial.addDialogue(player.getName() + "?... É, combina.");
+        tutorial.addDialogue("Você. É, você mesmo. Não olhe pros lados. Essa cara de desespero... Típico de quem não tem onde cair morto.");
+        tutorial.addDialogue("Meu nome é Jombson. Guarde bem, talvez um dia precise implorar por algo. Sou o cérebro por trás... bem, de tudo que importa por aqui. E hoje, num raro momento de tédio, decidi notar sua insignificante existência.");
+        tutorial.addDialogue("E não, antes que crie esperanças, você *não* trabalha pra mim. Isso é um luxo. E você, claramente, não tem nenhum.");
+        tutorial.addDialogue("Mas sabe o que me diverte? Ver gente como você rastejar. É... inspirador, à sua maneira.");
+        tutorial.addDialogue("Vê aquele farol caindo aos pedaços ali? É o seu novo 'palácio'. Perfeito pra quem não pode escolher.");
+        tutorial.addDialogue("Sua 'missão', se é que podemos chamar assim: vá pra lá e venda água. Sim, água. Para os idiotas presos no trânsito.");
+        tutorial.addDialogue("Não me olhe com essa cara. Ordens são para serem cumpridas, não entendidas.");
+        tutorial.addDialogue("Cada garrafa vendida? Um mísero real. É quase um insulto, eu sei. Mas é mais do que você vale agora.");
+        tutorial.addDialogue("Tem um botão aí... 'Trabalhar', ou algo do tipo. Veja se consegue ao menos *isso*. Me prove que você entende o conceito de 'clicar' e 'obedecer'. Não me decepcione... mais.");
+        tutorial.addDialogue("Faça isso. Quem sabe, *quem sabe*, se você não me irritar demais ou tropeçar nos próprios pés, eu te jogue um osso maior.");
+        tutorial.addDialogue("Mas por agora, menos conversa e mais servilismo. Venda. Toda grande fortuna começa com alguém engolindo o orgulho por trocados. E você tem *muito* orgulho pra engolir.");
         tutorial.setSize(tutorial.getPreferredSize()); 
         tutorial.setSoundPath("./src/trabalho/resources/audio/jombson.wav");
         dialoguePane.add(tutorial, JLayeredPane.PALETTE_LAYER);
@@ -90,6 +95,7 @@ public class Game extends javax.swing.JFrame {
         moneyLabel = new javax.swing.JLabel();
         workButton = new javax.swing.JButton();
         dialoguePane = new javax.swing.JLayeredPane();
+        eventLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("playerMoney");
@@ -179,17 +185,24 @@ public class Game extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(159, 159, 159)
-                .addComponent(dialoguePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(159, 159, 159)
+                        .addComponent(dialoguePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(eventLabel)))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dialoguePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(eventLabel)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dialoguePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 44, Short.MAX_VALUE))
         );
 
@@ -201,6 +214,7 @@ public class Game extends javax.swing.JFrame {
         buttonAnimation(workButton, "work");
         player.addMoney(1);
         moneyLabel.setText(player.getMoney() + "R$");
+        eventLabel.setText(player.getProfession().doJobActivity());
         SoundPlayer.playSound("src/trabalho/resources/audio/money.wav");
         
     }//GEN-LAST:event_workButtonActionPerformed
@@ -244,6 +258,7 @@ public class Game extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane dialoguePane;
     private javax.swing.JLabel employeeLabel;
+    private javax.swing.JLabel eventLabel;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
