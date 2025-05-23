@@ -7,7 +7,9 @@ package Entidades;
 import Sound.SoundPlayer;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  *
  * @author joaoluis
@@ -45,11 +47,10 @@ public class dialogueBox extends javax.swing.JPanel {
     public int getDialogueIndex(){
         return dialogueIndex;
     }
-    public void passDialogue(){
-        this.dialogueIndex = (dialogueIndex + 1);
-        if(dialogueIndex >= dialogues.size()){
-        java.awt.Container parent = this.getParent(); 
-
+    public void passDialogue() {
+        int nextIndex = (dialogueIndex + 1);
+        if (nextIndex >= dialogues.size()) {
+            java.awt.Container parent = this.getParent(); 
             if (parent != null) { 
                 parent.remove(this); 
                 parent.revalidate(); 
@@ -57,15 +58,53 @@ public class dialogueBox extends javax.swing.JPanel {
                 return;
             }
         }
+
+        dialogueIndex = nextIndex;
         playVoice();
-        dialogueField.setText(dialogues.get(dialogueIndex));
     }
-    public void playVoice(){
-        int speechLength = dialogues.get(dialogueIndex).length();
-        for(int i = 0; i < speechLength / 3; i++) {
-            SoundPlayer.playSound(getSoundPath());
+
+
+
+   public void playVoice() {
+    if (dialogueIndex >= dialogues.size()) return;
+
+    String fullText = dialogues.get(dialogueIndex);
+    final int textLength = fullText.length();
+    final int[] currentIndex = {0};
+
+    dialogueField.setText(""); // Clear before starting
+
+    // Disable the button during typing
+    nextDialogButton.setEnabled(false);
+
+    final StringBuilder buffer = new StringBuilder();
+
+    Timer timer = new Timer(30, null);
+    timer.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (currentIndex[0] < textLength) {
+            buffer.append(fullText.charAt(currentIndex[0]));
+            currentIndex[0]++;
+
+            // Update text and play sound every 3 characters or at the end
+            if (currentIndex[0] % 3 == 0 || currentIndex[0] == textLength) {
+                dialogueField.setText(buffer.toString());
+
+                if (soundPath != null && !soundPath.isEmpty()) {
+                    new Thread(() -> SoundPlayer.playSound(soundPath)).start();
+                }
+            }
+        } else {
+            ((Timer) e.getSource()).stop();
+            nextDialogButton.setEnabled(true);
         }
-    }
+        }
+    });
+    timer.start();
+}
+
+
     public String getCurrentDialogue(){
         return dialogues.get(dialogueIndex);
     }
@@ -114,6 +153,7 @@ public class dialogueBox extends javax.swing.JPanel {
         dialogueField.setEditable(false);
         dialogueField.setBackground(new java.awt.Color(235, 235, 235));
         dialogueField.setColumns(20);
+        dialogueField.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         dialogueField.setLineWrap(true);
         dialogueField.setRows(5);
         dialogueField.setWrapStyleWord(true);

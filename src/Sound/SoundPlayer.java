@@ -3,23 +3,28 @@ package Sound;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-
+import java.util.HashMap;
 
 public class SoundPlayer {
-    public static void playSound(String filePath){
+    private static final HashMap<String, Clip> clipCache = new HashMap<>();
+
+    public static void playSound(String filePath) {
         try {
-            // Open an audio input stream.
-            File soundFile = new File(filePath);
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = clipCache.get(filePath);
+            if (clip == null) {
+                // Load and cache the clip
+                AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(filePath));
+                clip = AudioSystem.getClip();
+                clip.open(audioIn);
+                clipCache.put(filePath, clip);
+            }
 
-            // Get a sound clip resource.
-            Clip clip = AudioSystem.getClip();
+            if (clip.isRunning()) {
+                clip.stop();  // Stop if already playing
+            }
 
-            // Open audio clip and load samples from the audio input stream.
-            clip.open(audioIn);
-
-            // Play the audio clip.
-            clip.start();
+            clip.setFramePosition(0);  // Rewind to beginning
+            clip.start();              // Play
 
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();

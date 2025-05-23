@@ -33,9 +33,21 @@ public class Game extends javax.swing.JFrame {
         employeeLabel.setText(player.getEmployees().size() + " empregados");
         
         // start tutorial,
+       // start tutorial
         dialogueBox tutorial = new dialogueBox("Jombson", "Hm?");
-        tutorial.addDialogue("Ah, você está em busca de oportunidades?");
-        tutorial.addDialogue("O meu nome é Jombson. Vou te ajudar a sair da sua situação e ficar rico. Te fazer um milionário.");
+        tutorial.addDialogue("Qual seu nome, garoto?");
+        tutorial.addDialogue(player.getName() + "?");
+        tutorial.addDialogue("Você. É... você mesmo. Tem cara de quem não tem nada a perder.");
+        tutorial.addDialogue("Sou Jombson. Visionário, magnata, gênio autoproclamado. E hoje, por puro capricho, decidi olhar na sua direção.");
+        tutorial.addDialogue("Não, você não trabalha pra mim. Isso seria um privilégio. Ainda não ganhado.");
+        tutorial.addDialogue("Mas eu gosto de apostar em causas quase perdidas. É mais divertido assim.");
+        tutorial.addDialogue("Ali na estrada tem um farol velho. Lixo urbano. Ideal pra quem ainda não tem o direito de ser exigente.");
+        tutorial.addDialogue("Vai até lá e venda água pros motoristas. Não me pergunte por quê — só faça.");
+        tutorial.addDialogue("Cada venda? 1 real. Pouco, mas mais do que você tem agora.");
+        tutorial.addDialogue("Clique em 'Trabalhar'. Me mostre que sabe obedecer instruções simples. Talvez eu me impressione.");
+        tutorial.addDialogue("Continue. Quem sabe um dia, se não for completamente inútil, eu deixo você participar de algo maior.");
+        tutorial.addDialogue("Mas por enquanto, cale-se e venda. Toda jornada começa com alguém se humilhando por moedas.");
+
         tutorial.setSize(tutorial.getPreferredSize()); 
         tutorial.setSoundPath("./src/trabalho/resources/audio/jombson.wav");
         dialoguePane.add(tutorial, JLayeredPane.PALETTE_LAYER);
@@ -189,6 +201,7 @@ public class Game extends javax.swing.JFrame {
         buttonAnimation(workButton, "work");
         player.addMoney(1);
         moneyLabel.setText(player.getMoney() + "R$");
+        SoundPlayer.playSound("src/trabalho/resources/audio/money.wav");
         
     }//GEN-LAST:event_workButtonActionPerformed
 
