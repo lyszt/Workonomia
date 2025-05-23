@@ -4,6 +4,7 @@
  */
 package Entidades;
 
+import Sound.SoundPlayer;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
@@ -15,6 +16,7 @@ public class dialogueBox extends javax.swing.JPanel {
     ArrayList<String> dialogues;
     int dialogueIndex;
     String speaker;
+    String soundPath;
     
     /**
      * Creates new form dialogueBox
@@ -26,6 +28,9 @@ public class dialogueBox extends javax.swing.JPanel {
         this.dialogues.add(first_dialogue);
         dialogueField.setText(first_dialogue);
         characterName.setText(speaker);
+        dialogues.get(dialogueIndex).chars().forEach((c) -> {
+            SoundPlayer.playSound(getSoundPath());
+        });
        }
     public void setAuthorIcon(String path){
         authorIcon.setIcon(new ImageIcon(path));
@@ -43,16 +48,34 @@ public class dialogueBox extends javax.swing.JPanel {
     public int getDialogueIndex(){
         return dialogueIndex;
     }
-    public int passDialogue(){
+    public void passDialogue(){
         this.dialogueIndex = (dialogueIndex + 1);
-        if(dialogueIndex > dialogues.size()){
-            return 0;
+        if(dialogueIndex >= dialogues.size()){
+        java.awt.Container parent = this.getParent(); 
+
+            if (parent != null) { 
+                parent.remove(this); 
+                parent.revalidate(); 
+                parent.repaint(); 
+                return;
+            }
         }
+            
+        dialogues.get(dialogueIndex).chars().forEach((c) -> {
+            SoundPlayer.playSound(getSoundPath());
+        });
         dialogueField.setText(dialogues.get(dialogueIndex));
-        return 1;
     }
     public String getCurrentDialogue(){
         return dialogues.get(dialogueIndex);
+    }
+
+    public String getSoundPath() {
+        return soundPath;
+    }
+
+    public void setSoundPath(String soundPath) {
+        this.soundPath = soundPath;
     }
     
 
@@ -128,15 +151,7 @@ public class dialogueBox extends javax.swing.JPanel {
     }//GEN-LAST:event_dialogueFieldActionPerformed
 
     private void passDialogue(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passDialogue
-        if(passDialogue() == 0){
-            java.awt.Container parent = this.getParent(); 
-
-            if (parent != null) { 
-                parent.remove(this); 
-                parent.revalidate(); 
-                parent.repaint();    
-            }
-        }
+        passDialogue();
     }//GEN-LAST:event_passDialogue
 
 

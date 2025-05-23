@@ -36,6 +36,7 @@ public class Game extends javax.swing.JFrame {
         dialogueBox tutorial = new dialogueBox("Jombson", "Ah, você está em busca de oportunidades?"); 
         tutorial.addDialogue("O meu nome é Jombson. Vou te ajudar a sair da sua situação e ficar rico. Te fazer um milionário.");
         tutorial.setSize(tutorial.getPreferredSize()); 
+        tutorial.setSoundPath("./src/trabalho/resources/audio/jombson.wav");
         dialoguePane.add(tutorial, JLayeredPane.PALETTE_LAYER);
        int x = (dialoguePane.getWidth() - tutorial.getWidth()) / 2;
        int y = (dialoguePane.getHeight() - tutorial.getHeight()) / 2;
