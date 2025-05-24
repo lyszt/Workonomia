@@ -5,6 +5,7 @@
 package trabalho;
 
 import Entidades.Unemployed;
+import Entidades.GameLoop;
 import Sound.SoundPlayer;
 import javax.swing.*;
 import java.awt.*;
@@ -33,41 +34,23 @@ public class Game extends javax.swing.JFrame {
         }
         while(name == null);
   
-        this.player = new Player(0, name, new Unemployed("farol"));
+        this.player = new Player(0, name, new Unemployed("farol", name, 1.0));
         moneyLabel.setText(player.getMoney()+" R$");
         professionLabel.setText(player.getProfession().toString());
         employeeLabel.setText(player.getEmployees().size() + " empregados");
+        GameLoop gameLoop = new GameLoop(player);
+        gameLoop.startGameLoop(eventLabel);
+        // start tutorial
+        Story gameStory = new Story(this, dialoguePane, player, gameLoop);
         
-        // start tutorial,
-       // start tutorial
-        dialogueBox tutorial = new dialogueBox("Jombson", "(Jombson te encara de cima a baixo, um suspiro quase inaudível escapa.) ... O que foi?", 1);
-        tutorial.addDialogue("Qual é o seu nome, garoto? Anda, não tenho o dia todo.");
-        tutorial.addDialogue(player.getName() + "?... É, combina.");
-        tutorial.addDialogue("Você. É, você mesmo. Não olhe pros lados. Essa cara de desespero... Típico de quem não tem onde cair morto.");
-        tutorial.addDialogue("Meu nome é Jombson. Guarde bem, talvez um dia precise implorar por algo. Sou o cérebro por trás... bem, de tudo que importa por aqui. E hoje, num raro momento de tédio, decidi notar sua insignificante existência.");
-        tutorial.addDialogue("E não, antes que crie esperanças, você *não* trabalha pra mim. Isso é um luxo. E você, claramente, não tem nenhum.");
-        tutorial.addDialogue("Mas sabe o que me diverte? Ver gente como você rastejar. É... inspirador, à sua maneira.");
-        tutorial.addDialogue("Vê aquele farol caindo aos pedaços ali? É o seu novo 'palácio'. Perfeito pra quem não pode escolher.");
-        tutorial.addDialogue("Sua 'missão', se é que podemos chamar assim: vá pra lá e venda água. Sim, água. Para os idiotas presos no trânsito.");
-        tutorial.addDialogue("Não me olhe com essa cara. Ordens são para serem cumpridas, não entendidas.");
-        tutorial.addDialogue("Cada garrafa vendida? Um mísero real. É quase um insulto, eu sei. Mas é mais do que você vale agora.");
-        tutorial.addDialogue("Tem um botão aí... 'Trabalhar', ou algo do tipo. Veja se consegue ao menos *isso*. Me prove que você entende o conceito de 'clicar' e 'obedecer'. Não me decepcione... mais.");
-        tutorial.addDialogue("Faça isso. Quem sabe, *quem sabe*, se você não me irritar demais ou tropeçar nos próprios pés, eu te jogue um osso maior.");
-        tutorial.addDialogue("Mas por agora, menos conversa e mais servilismo. Venda. Toda grande fortuna começa com alguém engolindo o orgulho por trocados. E você tem *muito* orgulho pra engolir.");
-        tutorial.setSize(tutorial.getPreferredSize()); 
-        tutorial.setSoundPath("./src/trabalho/resources/audio/jombson.wav");
-        dialoguePane.add(tutorial, JLayeredPane.PALETTE_LAYER);
-       int x = (dialoguePane.getWidth() - tutorial.getWidth()) / 2;
-       int y = (dialoguePane.getHeight() - tutorial.getHeight()) / 2;
-       tutorial.setLocation(x, y);
+        gameStory.meetTheAntagonist();
+        gameStory.corruptionOfMen();
 
-        tutorial.setVisible(true); 
-        tutorial.playVoice();
-        this.revalidate();
-        this.repaint();    
    
         
     }
+    
+  
 
     private void buttonAnimation(JButton targetButton, String filename){
         String pressedPath = ("/trabalho/resources/buttons/" + filename + "_pressed.png");
@@ -101,7 +84,7 @@ public class Game extends javax.swing.JFrame {
         eventLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("playerMoney");
+        setTitle("Workonomia: Simulador de trabalho");
         setBackground(new java.awt.Color(102, 102, 102));
 
         jPanel1.setBackground(new java.awt.Color(227, 227, 227));
@@ -188,11 +171,11 @@ public class Game extends javax.swing.JFrame {
         dialoguePane.setLayout(dialoguePaneLayout);
         dialoguePaneLayout.setHorizontalGroup(
             dialoguePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 741, Short.MAX_VALUE)
+            .addGap(0, 803, Short.MAX_VALUE)
         );
         dialoguePaneLayout.setVerticalGroup(
             dialoguePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 214, Short.MAX_VALUE)
+            .addGap(0, 260, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -209,7 +192,7 @@ public class Game extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(eventLabel)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

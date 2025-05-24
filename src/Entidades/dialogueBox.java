@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JLabel;
 /**
  *
  * @author joaoluis
@@ -20,6 +21,8 @@ public class dialogueBox extends javax.swing.JPanel {
     String speaker;
     String soundPath;
     int skippable;
+    boolean containsEvent;
+    DynamicEvent dialogueEvent = null;
     
     /**
      * Creates new form dialogueBox
@@ -49,7 +52,7 @@ public class dialogueBox extends javax.swing.JPanel {
     public int getDialogueIndex(){
         return dialogueIndex;
     }
-    public void passDialogue() {
+    public int passDialogue() {
         int nextIndex = (dialogueIndex + 1);
         if (nextIndex >= dialogues.size()) {
             java.awt.Container parent = this.getParent(); 
@@ -57,15 +60,57 @@ public class dialogueBox extends javax.swing.JPanel {
                 parent.remove(this); 
                 parent.revalidate(); 
                 parent.repaint(); 
-                return;
+                return dialogueIndex;
             }
         }
 
         dialogueIndex = nextIndex;
         playVoice();
+        return dialogueIndex;
     }
 
+    public String getSpeaker() {
+        return speaker;
+    }
 
+    public void setSpeaker(String speaker) {
+        this.speaker = speaker;
+    }
+
+    public int getSkippable() {
+        return skippable;
+    }
+
+    public void setSkippable(int skippable) {
+        this.skippable = skippable;
+    }
+
+    public boolean isContainsEvent() {
+        return containsEvent;
+    }
+
+    public void setContainsEvent(boolean containsEvent, DynamicEvent dialogueEvent) {
+        this.containsEvent = containsEvent;
+        this.dialogueEvent = dialogueEvent;
+    }
+
+    public JLabel getAuthorIcon() {
+        return authorIcon;
+    }
+
+    public void setAuthorIcon(JLabel authorIcon) {
+        this.authorIcon = authorIcon;
+    }
+
+    public JLabel getCharacterName() {
+        return characterName;
+    }
+
+    public void setCharacterName(JLabel characterName) {
+        this.characterName = characterName;
+    }
+
+    
 
    public void playVoice() {
     if (dialogueIndex >= dialogues.size()) return;
@@ -149,7 +194,7 @@ public class dialogueBox extends javax.swing.JPanel {
         nextDialogButton.setText("Próximo");
         nextDialogButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passDialogue(evt);
+                passDialogueClick(evt);
             }
         });
 
@@ -211,9 +256,11 @@ public class dialogueBox extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void passDialogue(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passDialogue
-        passDialogue();
-    }//GEN-LAST:event_passDialogue
+    private void passDialogueClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passDialogueClick
+    if (passDialogue() == dialogues.size() && containsEvent) {
+        dialogueEvent.doEvent();
+    }
+    }//GEN-LAST:event_passDialogueClick
 
     private void skipButtonpassDialogue(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skipButtonpassDialogue
         if(this.skippable == 1){

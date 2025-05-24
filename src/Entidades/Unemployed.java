@@ -6,12 +6,14 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Unemployed extends Profession {
-
+    
+    private String name;
     private ArrayList<String> randomActs;
     private Random random;
 
-    public Unemployed(String place) {
-        super("Desempregado", place);
+    public Unemployed(String place, String name, double wage) {
+        super("Desempregado", place, wage);
+        this.name = name;
         random = new Random();
 
         randomActs = new ArrayList<>(Arrays.asList(
@@ -48,44 +50,55 @@ public class Unemployed extends Profession {
             "passou uma hora encerando o capô do carro do Jombson com a própria camisa",
             "escreveu uma canção de louvor a Jombson e a cantou do outro lado da rua de seu escritório",
             "recolheu o lixo que Jombson jogou pela janela do carro e o guardou como uma 'lembrança'",
+            "recolheu o lixo que Jombson jogou pela janela do carro e o guardou como uma 'lembrança'",
+            "esperou duas horas na chuva só para dizer 'bom dia' ao Jombson, que não respondeu",
+            "tentou imitar o jeito de andar confiante de Jombson e tropeçou numa pedra solta",
             "fez um boneco de vudu do Jombson com pão velho, mas ficou com dó e o alimentou",
             "tentou 'adivinhar' o signo de Jombson para puxar assunto, e errou de forma espetacular",
+            "limpou as botas do Jombson com tanto esmero que conseguiu ver seu próprio reflexo desolado nelas",
             "ofereceu-se para ser o 'guarda-costas não oficial' de Jombson, seguindo-o a uma distância de 10 metros",
             "roubou uma flor do jardim público para deixar no para-brisa do Jombson, que a jogou fora com desprezo",
             "comprou o jornal só para ler o horóscopo para Jombson, esperando um dia de sorte para ambos",
             "desenhou um retrato 'heroico' de Jombson com carvão em uma calçada, que a chuva apagou",
-            "limpou as botas do Jombson e, secretamente, cuspiu dentro delas antes de devolver",
             "praticou no espelho diferentes maneiras de dizer 'Sim, senhor, Jombson' com o máximo de servilismo",
-                "vendeu água no sinal",
-                "dançou no parque",
-                "apostou em corrida de cavalos",
-                "assaltou uma velha",
-                "cantou",
-                "limpou as botas do Jombson",
-                "pediu dinheiro na esquina",
-                "varreu a calçada",
-                "lavou carros",
-                "vendeu balas no ônibus",
-                "consertou bicicletas",
-                "catou latinhas para reciclagem",
-                "fez um bico de pintor",
-                "entregou panfletos",
-                "jogou baralho com amigos",
-                "alimentou os pombos",
-                "roubou doce de uma criança",
-                "fez malabarismo",
-                "montou um móvel que achou",
-                "cuidou do cachorro de um conhecido",
-                "participou de uma pesquisa remunerada",
-                "dormiu até o meio-dia",
-                "escreveu um poema sobre a vida",
-                "ajudou um turista perdido",
-                "tocou violão pedindo trocados",
-                "limpou o quintal de alguém por dinheiro",
-                "vendeu salgado",
-                "fez um curso online gratuito",
-                "doou sangue por um lanche",
-                "assistiu a uma obra o dia todo"
+            "fez amizade com um manequim de loja e desabafou sobre como admira o Jombson",
+            "tentou devolver na loja um produto que achou na rua para pegar o dinheiro de volta",
+            "declarou-se o 'fiscal de qualidade' do corredor de amostras grátis do supermercado",
+            "usou o Wi-Fi de uma lanchonete para fazer um curso online de 'Como se tornar indispensável para seu chefe'",
+            "criou uma coreografia elaborada para pedir trocados, mas as pessoas acharam que era arte de rua",
+            "passou o dia caçando a moeda que caiu no bueiro",
+            "tentou ensinar seu vira-lata a dar consultoria financeira",
+            "participou de um programa de auditório só para comer o sanduíche da plateia",
+            "vendeu água no sinal",
+            "dançou no parque",
+            "apostou em corrida de cavalos",
+            "assaltou uma velha",
+            "cantou",
+            "limpou as botas do Jombson",
+            "pediu dinheiro na esquina",
+            "varreu a calçada",
+            "lavou carros",
+            "vendeu balas no ônibus",
+            "consertou bicicletas",
+            "catou latinhas para reciclagem",
+            "fez um bico de pintor",
+            "entregou panfletos",
+            "jogou baralho com amigos",
+            "alimentou os pombos",
+            "roubou doce de uma criança",
+            "fez malabarismo",
+            "montou um móvel que achou",
+            "cuidou do cachorro de um conhecido",
+            "participou de uma pesquisa remunerada",
+            "dormiu até o meio-dia",
+            "escreveu um poema sobre a vida",
+            "ajudou um turista perdido",
+            "tocou violão pedindo trocados",
+            "limpou o quintal de alguém por dinheiro",
+            "vendeu salgado",
+            "fez um curso online gratuito",
+            "doou sangue por um lanche",
+            "assistiu a uma obra o dia todo"
         ));
     }
 
@@ -104,6 +117,16 @@ public class Unemployed extends Profession {
      */
     @Override
     public String doJobActivity() {
-        return "Você " + randomVerb() + " em " + this.place + ".";
+        return this.name + " " + randomVerb() + " em " + this.place + ".";
     }
+
+    public ArrayList<String> getRandomActs() {
+        return randomActs;
+    }
+
+    public void setRandomActs(ArrayList<String> randomActs) {
+        this.randomActs = randomActs;
+    }
+    
+    
 }

@@ -11,8 +11,9 @@ package Entidades;
 public abstract class Profession {
     String profession;
     String place;
+    double wage;
 
-    public Profession(String profession, String place) {
+    public Profession(String profession, String place, double wage) {
         this.profession = profession;
         this.place = place;
     }
@@ -37,6 +38,14 @@ public abstract class Profession {
     @Override
     public String toString() {
         return profession;
+    }
+
+    public double getWage() {
+        return wage;
+    }
+
+    public void setWage(double wage) {
+        this.wage = wage;
     }
     
     
