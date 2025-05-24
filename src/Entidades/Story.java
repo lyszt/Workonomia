@@ -56,7 +56,7 @@ public class Story {
     }
     
         public void corruptionOfMen(){
-    dialogueBox act2 = new dialogueBox("Pedrinho", "Ei amigo, pode me dar um dinheiro? Vejo que você está cheio da grana.", 0);
+    dialogueBox act2 = new dialogueBox("Pedrinho", "Ei amigo, pode me dar um dinheiro? Vejo que você está cheio da grana.", 1);
     act2.setContainsEvent(true, () -> player.addEmployee(new Employee(player, "farol", "Pedrinho", 0.5)));
     
     act2.addDialogue("(Você para. A voz dele te atinge, mas são as palavras de Jombson que ecoam na sua mente. Você olha para os 50 reais na sua mão, sentindo o peso deles. Um poder que você não tinha antes.)");

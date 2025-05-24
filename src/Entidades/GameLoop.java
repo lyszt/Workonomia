@@ -7,8 +7,9 @@ package Entidades;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-
+import trabalho.Game;
 /**
  *
  * @author joaoluis
@@ -17,26 +18,29 @@ import javax.swing.JLabel;
 public class GameLoop {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final Player player;
+    private final Game mainFrame;
 
-    public GameLoop(Player player) {
+    public GameLoop(Player player, Game mainFrame) {
         this.player = player;
+        this.mainFrame = mainFrame;
     }
     
-    public void startGameLoop(JLabel eventLabel) {
+    public void startGameLoop() {
         Runnable task = () -> {
             if(!player.getEmployees().isEmpty()){
-                startEmployeeWorkLoop(eventLabel);
+                startEmployeeWorkLoop();
             }
         };
         scheduler.scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
     }
-
-    public void startEmployeeWorkLoop(JLabel eventLabel) {
+    
+    public void startEmployeeWorkLoop() {
         Runnable task = () -> {
             player.getEmployees().forEach(employee -> {
                 employee.doJobActivity();
                 player.addMoney(employee.getWage());
-                eventLabel.setText(employee.doJobActivity());
+                mainFrame.getEventLabel().setText(employee.doJobActivity());
+                mainFrame.getMoneyLabel().setText(player.getMoney() + " R$");
             });
         };
         scheduler.scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
