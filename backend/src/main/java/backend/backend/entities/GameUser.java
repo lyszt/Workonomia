@@ -12,11 +12,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cliente {
+public class GameUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
-    String cpf;
-    String nome;
-    String dataNasc;
+    String name;
+    String password;
 }

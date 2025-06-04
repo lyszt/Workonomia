@@ -9,32 +9,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import backend.backend.entities.Cartao;
-import backend.backend.repositories.CartaoRepository;
+import backend.backend.entities.GameUser;
+import backend.backend.repositories.GameUserRepository;
 import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-public class CartaoController {
-    CartaoRepository repos;
+public class LoginController {
+    GameUserRepository repos;
 
-    @GetMapping("/cartoes")
-    public List<Cartao> getAllCartoes() {
+    @GetMapping("/users")
+    public List<GameUser> getAllUsers() {
         return repos.findAll();
     }
     
-    @GetMapping("/cartao/{id}")
-    public Cartao getCartaoById(@PathVariable Long id) {
+    @GetMapping("/user/{id}")
+    public GameUser getUserById(@PathVariable Long id) {
         return repos.findById(id).get();
     }
 
-    @PostMapping("/cartao")
-    public Cartao saveCartao(@RequestBody Cartao cartao) {
-        return repos.save(cartao);
+    @PostMapping("/userregister")
+    public GameUser saveUser(@RequestBody GameUser user) {
+        return repos.save(user);
     }
 
-    @DeleteMapping("/cartao/{id}")
-    public void deleteCartao(@PathVariable Long id) {
+    @DeleteMapping("/user/{id}")
+    public void deleteUser(@PathVariable Long id) {
         repos.deleteById(id);
     }    
 }
