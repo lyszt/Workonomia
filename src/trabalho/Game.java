@@ -44,7 +44,10 @@ public class Game extends javax.swing.JFrame {
         Story gameStory = new Story(this, dialoguePane, player, gameLoop);
         
         gameStory.meetTheAntagonist();
-        gameStory.corruptionOfMen();
+        if(player.getMoney() > 20){
+            gameStory.corruptionOfMen();
+
+        }
 
    
         

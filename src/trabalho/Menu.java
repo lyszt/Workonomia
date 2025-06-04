@@ -48,8 +48,9 @@ public class Menu extends javax.swing.JFrame {
     
     public Menu() {
         initComponents();
+        System.out.println("Resolução:" + this.getWidth() + " , " + this.getHeight());
         System.out.println(System.getProperty("user.dir"));
-        playBackgroundMusic("./src/trabalho/resources/audio/menu.wav");
+        playBackgroundMusic("./src/trabalho/resources/audio/netherlands.wav");
     }
 
     private void buttonAnimation(JButton targetButton, String filename){
@@ -71,39 +72,23 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        creditButton = new javax.swing.JButton();
-        startButton = new javax.swing.JButton();
-        leaveButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        login = new javax.swing.JTextField();
+        senha = new javax.swing.JTextField();
+        startButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        creditButton = new javax.swing.JButton();
+        leaveButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
 
-        jPanel1.setBackground(new java.awt.Color(235, 235, 235));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/images/workonomia.png"))); // NOI18N
 
-        jPanel2.setBackground(new java.awt.Color(0,0,0,50)
-        );
+        login.setForeground(new java.awt.Color(153, 153, 153));
+        login.setText("Coloque seu usuário");
 
-        creditButton.setBackground(null);
-        creditButton.setForeground(null);
-        creditButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/creditos.png"))); // NOI18N
-        creditButton.setBorder(null);
-        creditButton.setBorderPainted(false);
-        creditButton.setFocusPainted(false);
-        creditButton.setFocusable(false);
-        creditButton.setOpaque(false);
-        creditButton.setRequestFocusEnabled(false);
-        creditButton.setRolloverEnabled(false);
-        creditButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                creditButtonActionPerformed(evt);
-            }
-        });
-
-        startButton.setBackground(null);
-        startButton.setForeground(null);
         startButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/start.png"))); // NOI18N
         startButton.setBorder(null);
         startButton.setBorderPainted(false);
@@ -118,14 +103,32 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        leaveButton.setBackground(null);
-        leaveButton.setForeground(null);
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setText("Usuário");
+
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setText("Senha");
+
+        creditButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/creditos.png"))); // NOI18N
+        creditButton.setBorder(null);
+        creditButton.setBorderPainted(false);
+        creditButton.setContentAreaFilled(false);
+        creditButton.setFocusPainted(false);
+        creditButton.setFocusable(false);
+        creditButton.setRequestFocusEnabled(false);
+        creditButton.setRolloverEnabled(false);
+        creditButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                creditButtonActionPerformed(evt);
+            }
+        });
+
         leaveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/leave.png"))); // NOI18N
         leaveButton.setBorder(null);
         leaveButton.setBorderPainted(false);
+        leaveButton.setContentAreaFilled(false);
         leaveButton.setFocusPainted(false);
         leaveButton.setFocusable(false);
-        leaveButton.setOpaque(false);
         leaveButton.setRequestFocusEnabled(false);
         leaveButton.setRolloverEnabled(false);
         leaveButton.addActionListener(new java.awt.event.ActionListener() {
@@ -134,71 +137,53 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(creditButton, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                    .addComponent(leaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(44, 44, 44))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(47, Short.MAX_VALUE)
-                    .addComponent(startButton)
-                    .addGap(49, 49, 49)))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addComponent(creditButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(leaveButton)
-                .addContainerGap(232, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(44, 44, 44)
-                    .addComponent(startButton)
-                    .addContainerGap(358, Short.MAX_VALUE)))
-        );
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/images/workonomia.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addComponent(jLabel2)
-                .addContainerGap(345, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel2)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(1043, 1043, 1043)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(creditButton, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(leaveButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(startButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addGap(85, 85, 85)))
+                .addGap(419, 419, 419))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(startButton)
+                .addGap(88, 88, 88)
+                .addComponent(creditButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(leaveButton)
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -261,10 +246,12 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton creditButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton leaveButton;
+    private javax.swing.JTextField login;
+    private javax.swing.JTextField senha;
     private javax.swing.JButton startButton;
     // End of variables declaration//GEN-END:variables
 }
