@@ -17,5 +17,6 @@ public class GameUser {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     String name;
+    String email;
     String password;
 }
