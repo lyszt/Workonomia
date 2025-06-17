@@ -14,6 +14,8 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter; 
+
 import java.util.List;
 
 
@@ -207,8 +209,12 @@ public class Registro extends javax.swing.JFrame {
     
     try {
         RestTemplate req = new RestTemplate();
+        
+        req.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        
         List<HttpMessageConverter<?>> converters = req.getMessageConverters();
         converters.forEach(c -> System.out.println(c.getClass().getName()));
         
@@ -222,6 +228,7 @@ public class Registro extends javax.swing.JFrame {
         
         if (response.getStatusCode() == HttpStatus.CREATED || response.getStatusCode() == HttpStatus.OK) {
             JOptionPane.showMessageDialog(this, "Seja bem vindo ao Workonomia!");
+            this.dispose();
         }
     } catch (HttpClientErrorException e) {
         String erroDoServidor = e.getResponseBodyAsString();

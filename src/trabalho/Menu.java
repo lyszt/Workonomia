@@ -4,6 +4,7 @@
  */
 package trabalho;
 
+import Entidades.User;
 import Sound.SoundPlayer;
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +13,16 @@ import java.awt.event.ActionListener;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 
 /**
@@ -48,6 +59,7 @@ public class Menu extends javax.swing.JFrame {
     
     public Menu() {
         initComponents();
+        errorLabel.setVisible(false);
         System.out.println("Resolução:" + this.getWidth() + " , " + this.getHeight());
         System.out.println(System.getProperty("user.dir"));
         playBackgroundMusic("./src/trabalho/resources/audio/netherlands.wav");
@@ -73,8 +85,7 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        login = new javax.swing.JTextField();
-        senha = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
         startButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -82,17 +93,22 @@ public class Menu extends javax.swing.JFrame {
         leaveButton = new javax.swing.JButton();
         registerButton = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
+        passwordField = new javax.swing.JPasswordField();
+        errorLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/images/workonomia.png"))); // NOI18N
 
-        login.setForeground(new java.awt.Color(153, 153, 153));
-        login.setText("Coloque seu usuário");
-        login.setBorder(null);
-
-        senha.setBorder(null);
+        emailField.setForeground(new java.awt.Color(153, 153, 153));
+        emailField.setText("Coloque seu e-mail");
+        emailField.setBorder(null);
+        emailField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailFieldActionPerformed(evt);
+            }
+        });
 
         startButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/login.png"))); // NOI18N
         startButton.setBorder(null);
@@ -109,7 +125,7 @@ public class Menu extends javax.swing.JFrame {
         });
 
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setText("Usuário");
+        jLabel1.setText("E-mail");
 
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Senha");
@@ -158,6 +174,15 @@ public class Menu extends javax.swing.JFrame {
 
         jCheckBox1.setText("Lembrar-se da senha");
 
+        passwordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordFieldActionPerformed(evt);
+            }
+        });
+
+        errorLabel.setForeground(new java.awt.Color(255, 0, 51));
+        errorLabel.setText("Senha ou usuário incorreto. Verifique os dados.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -169,17 +194,19 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(461, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(errorLabel)
                     .addComponent(jCheckBox1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(registerButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(startButton)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(startButton))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(emailField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)))
                         .addGap(344, 344, 344)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(creditButton, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,13 +221,13 @@ public class Menu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(9, 9, 9)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
+                        .addComponent(passwordField))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(creditButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -211,7 +238,9 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(startButton))
                 .addGap(18, 18, 18)
                 .addComponent(jCheckBox1)
-                .addGap(174, 174, 174))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(errorLabel)
+                .addGap(150, 150, 150))
         );
 
         pack();
@@ -225,11 +254,55 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_creditButtonActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        buttonAnimation(startButton, "start");
-        stopBackgroundMusic();
-        this.dispose();
-        JFrame Game = new Game();
-        Game.setVisible(true);
+        buttonAnimation(startButton, "login");
+     
+        String email = emailField.getText();
+        String password = new String(passwordField.getPassword());
+        User user = new User(null, email, password);
+        
+        if (email.isEmpty() || password.isEmpty()) {
+            errorLabel.setVisible(true);
+        }
+        else {
+        try {
+        RestTemplate req = new RestTemplate();
+        
+        req.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        
+        java.util.List<HttpMessageConverter<?>> converters = req.getMessageConverters();
+        converters.forEach(c -> System.out.println(c.getClass().getName()));
+        
+        HttpEntity<User> requestEntity = new HttpEntity<>(user, headers);
+        
+        ResponseEntity<String> response = req.postForEntity(
+            "http://localhost:8080/auth",
+            requestEntity,
+            String.class
+        );
+        
+        if (response.getStatusCode() == HttpStatus.ACCEPTED || response.getStatusCode() == HttpStatus.OK) {
+            stopBackgroundMusic();
+            JFrame gameLoop = new Game();
+            gameLoop.setVisible(true);
+            this.dispose();
+        }
+        if (response.getStatusCode() == HttpStatus.UNAUTHORIZED){
+            errorLabel.setVisible(true);
+        }
+  
+        
+    } catch (HttpClientErrorException e) {
+        String erroDoServidor = e.getResponseBodyAsString();
+        JOptionPane.showMessageDialog(this, "Ocorreu um erro: " + erroDoServidor);
+    }
+    catch(RestClientException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+            e.printStackTrace();
+    }
+        }
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void leaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leaveButtonActionPerformed
@@ -242,6 +315,14 @@ public class Menu extends javax.swing.JFrame {
         Registro registryForm = new Registro();
         registryForm.setVisible(true);
     }//GEN-LAST:event_registerButtonActionPerformed
+
+    private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordFieldActionPerformed
+
+    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
+        
+    }//GEN-LAST:event_emailFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,14 +361,15 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton creditButton;
+    private javax.swing.JTextField emailField;
+    private javax.swing.JLabel errorLabel;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton leaveButton;
-    private javax.swing.JTextField login;
+    private javax.swing.JPasswordField passwordField;
     private javax.swing.JButton registerButton;
-    private javax.swing.JTextField senha;
     private javax.swing.JButton startButton;
     // End of variables declaration//GEN-END:variables
 }
