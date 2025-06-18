@@ -9,41 +9,64 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
-
+import trabalho.Game;
 /**
  *
  * @author joaoluis
  */
 public class Story {
-    JFrame main;
-    JLayeredPane dialoguePane;
-    Player player;
+    private Game main;
+    private JLayeredPane dialoguePane;
+    private Player player;
+    private int currentChapter;
     
 
 
-    public Story(JFrame main, JLayeredPane dialoguePane, Player player) {
+    public Story(Game main, JLayeredPane dialoguePane, Player player) {
         this.main = main;
         this.dialoguePane = dialoguePane;
         this.player = player;
     }
+
+    public int getCurrentChapter() {
+        return currentChapter;
+    }
+
+    public void setCurrentChapter(int currentChapter) {
+        this.currentChapter = currentChapter;
+    }
+    
     
     public void meetTheAntagonist(){
         // start tutorial
+        this.currentChapter = 1;
         dialogueBox tutorial = new dialogueBox("Jombson", "(Jombson te escaneia, ajeita o colete e suspira.) ...Pois não? Se não for urgente, manda um e-mail. Minha agenda hoje tá surreal.", 1);
         tutorial.addDialogue("Ok, seu nome. E vamos ser ágeis, que eu tenho um call em cinco minutos.");
         tutorial.setAnimation("laugh", 5);
-        tutorial.addDialogue(player.getName() + "? Ok, anotei. O nome é só um label, o que importa é o delivery no final do dia.");
-        tutorial.addDialogue("Cara, vou ser bem direto com você. Esse seu look de quem não bateu a meta... tá te entregando. Zero sinergia com o nosso ecossistema.");
-        tutorial.addDialogue("Sou Jombson. Adiciona no LinkedIn depois. Basicamente, sou o head por trás do ecossistema daqui. Se tem valuation, passou pela minha mesa. E hoje, no gap de um meeting, resolvi alocar meu tempo pra analisar seu case.");
-        tutorial.addDialogue("E vamos alinhar as expectativas: você *não* faz parte do meu time. O onboarding aqui tem um custo, e seu track record atual não justifica o investimento.");
-        tutorial.addDialogue("Mas eu tenho um mindset de dar oportunidade pra quem tem drive. Achar um talento bruto no meio do nada... Isso sim é ser disruptivo.");
-        tutorial.addDialogue("Tá vendo aquele farol? Considera ele o seu primeiro projeto. Seu MVP (Minimum Viable Product).");
-        tutorial.addDialogue("Seu desafio, seu OKR do trimestre, vai ser validar um modelo de negócio B2C de baixo custo: vender água no trânsito.");
-        tutorial.addDialogue("Não precisa fazer essa cara. A gente precisa de gente proativa, com foco em execução, não em questionamento.");
-        tutorial.addDialogue("O unit economics é simples: um real por garrafa. A grana é irrelevante. O goal aqui é testar seu drive comercial, ver se você tem o tal do 'sangue no olho'.");
-        tutorial.addDialogue("Aí na interface tem um botão, 'Trabalhar' ou algo do tipo. É o seu call to action. Espero que sua capacidade de execução seja melhor que o seu branding pessoal. Me dá um feedback positivo sobre isso.");
-        tutorial.addDialogue("Performa bem nesse projeto-piloto. Quem sabe, se os seus KPIs forem interessantes, a gente marca um one-on-one pra discutir os próximos steps.");
-        tutorial.addDialogue("Agora vai. Menos talk e mais action. Todo unicórnio começou com alguém ralando muito pra vender uma solução simples. E você, cara, tem muito o que ralar pra sequer virar um pônei.");
+        if(player.getName().toLowerCase().equals("jombson")){
+            tutorial.addDialogue("(Jombson te olha feio e coloca as mãos no bolso para pegar um objeto.)");
+            tutorial.addDialogue("(É uma .38...)");
+            tutorial.addDialogue("Você disse Jombson?");
+            tutorial.setContainsEvent(true, () -> {
+                JOptionPane.showMessageDialog(main, "Fim de jogo, você morreu.");
+                System.exit(0);
+            });
+        }
+        else {
+            tutorial.addDialogue(player.getName() + "? Ok, anotei. O nome é só um label, o que importa é o delivery no final do dia.");
+            tutorial.addDialogue("Cara, vou ser bem direto com você. Esse seu look de quem não bateu a meta... tá te entregando. Zero sinergia com o nosso ecossistema.");
+            tutorial.addDialogue("Sou Jombson. Adiciona no LinkedIn depois. Basicamente, sou o head por trás do ecossistema daqui. Se tem valuation, passou pela minha mesa. E hoje, no gap de um meeting, resolvi alocar meu tempo pra analisar seu case.");
+            tutorial.addDialogue("E vamos alinhar as expectativas: você *não* faz parte do meu time. O onboarding aqui tem um custo, e seu track record atual não justifica o investimento.");
+            tutorial.addDialogue("Mas eu tenho um mindset de dar oportunidade pra quem tem drive. Achar um talento bruto no meio do nada... Isso sim é ser disruptivo.");
+            tutorial.addDialogue("Tá vendo aquele farol? Considera ele o seu primeiro projeto. Seu MVP (Minimum Viable Product).");
+            tutorial.addDialogue("Seu desafio, seu OKR do trimestre, vai ser validar um modelo de negócio B2C de baixo custo: vender água no trânsito.");
+            tutorial.addDialogue("Não precisa fazer essa cara. A gente precisa de gente proativa, com foco em execução, não em questionamento.");
+            tutorial.addDialogue("O unit economics é simples: um real por garrafa. A grana é irrelevante. O goal aqui é testar seu drive comercial, ver se você tem o tal do 'sangue no olho'.");
+            tutorial.addDialogue("Aí na interface tem um botão, 'Trabalhar' ou algo do tipo. É o seu call to action. Espero que sua capacidade de execução seja melhor que o seu branding pessoal. Me dá um feedback positivo sobre isso.");
+            tutorial.addDialogue("Performa bem nesse projeto-piloto. Quem sabe, se os seus KPIs forem interessantes, a gente marca um one-on-one pra discutir os próximos steps.");
+            tutorial.addDialogue("Agora vai. Menos talk e mais action. Todo unicórnio começou com alguém ralando muito pra vender uma solução simples. E você, cara, tem muito o que ralar pra sequer virar um pônei.");
+        }
+
         tutorial.setSize(tutorial.getPreferredSize()); 
         tutorial.setSoundPath("./src/trabalho/resources/audio/jombson.wav");
         dialoguePane.add(tutorial, JLayeredPane.PALETTE_LAYER);
@@ -58,6 +81,7 @@ public class Story {
     }
     
  public void corruptionOfMen(){
+     this.currentChapter = 2;
     // A primeira fala já estabelece o tom "de boa" e observador do Pedrinho.
     dialogueBox act2 = new dialogueBox(
         "Pedrinho, a Capivara",
@@ -68,6 +92,7 @@ public class Story {
 
     act2.setContainsEvent(true, () -> {
         player.addEmployee(this.main, new Employee(player, "farol", "pedrinho", 10, 15));
+        main.getHireButton().setVisible(true);
     });
 
     // As falas do jogador (narradas) permanecem, mostrando a sua transformação.

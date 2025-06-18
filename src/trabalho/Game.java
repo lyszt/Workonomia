@@ -23,9 +23,11 @@ public class Game extends javax.swing.JFrame {
      * Creates new form Menu
      */
     Player player;
+    Story gameStory;
     
     public Game() {
         initComponents();
+        //hireButton.setVisible(false);
         System.out.println(System.getProperty("user.dir"));
         SoundPlayer.playSound("./src/trabalho/resources/audio/menu.wav");
         String name = null;
@@ -40,6 +42,7 @@ public class Game extends javax.swing.JFrame {
         employeeLabel.setText(player.getEmployees().size() + " empregados");
         
         Story gameStory = new Story(this, dialoguePane, player);
+        this.gameStory = gameStory;
                
         GameLoop gameLoop = new GameLoop(player, this, gameStory);
         gameLoop.startGameLoop();
@@ -85,6 +88,14 @@ public class Game extends javax.swing.JFrame {
     public void setEmployeeLabel(JLabel employeeLabel) {
         this.employeeLabel = employeeLabel;
     }
+
+    public JButton getHireButton() {
+        return hireButton;
+    }
+
+    public void setHireButton(JButton hireButton) {
+        this.hireButton = hireButton;
+    }
     
     
     
@@ -115,11 +126,12 @@ public class Game extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         moneyLabel = new javax.swing.JLabel();
-        workButton = new javax.swing.JButton();
         professionLabel = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         dialoguePane = new javax.swing.JLayeredPane();
         eventLabel = new javax.swing.JLabel();
+        workButton = new javax.swing.JButton();
+        hireButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Workonomia: Simulador de trabalho");
@@ -143,15 +155,6 @@ public class Game extends javax.swing.JFrame {
         moneyLabel.setForeground(new java.awt.Color(0, 204, 204));
         moneyLabel.setText("00.00 R$");
 
-        workButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/work.png"))); // NOI18N
-        workButton.setBorder(null);
-        workButton.setContentAreaFilled(false);
-        workButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                workButtonActionPerformed(evt);
-            }
-        });
-
         professionLabel.setFont(new java.awt.Font("Lato Semibold", 0, 15)); // NOI18N
         professionLabel.setForeground(new java.awt.Color(102, 102, 102));
         professionLabel.setText("Desempregado");
@@ -167,9 +170,6 @@ public class Game extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(workButton))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,21 +200,37 @@ public class Game extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 344, Short.MAX_VALUE)
-                .addComponent(workButton)
-                .addGap(21, 21, 21))
+                .addContainerGap(461, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout dialoguePaneLayout = new javax.swing.GroupLayout(dialoguePane);
         dialoguePane.setLayout(dialoguePaneLayout);
         dialoguePaneLayout.setHorizontalGroup(
             dialoguePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 803, Short.MAX_VALUE)
+            .addGap(0, 926, Short.MAX_VALUE)
         );
         dialoguePaneLayout.setVerticalGroup(
             dialoguePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 260, Short.MAX_VALUE)
         );
+
+        workButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/work.png"))); // NOI18N
+        workButton.setBorder(null);
+        workButton.setContentAreaFilled(false);
+        workButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                workButtonActionPerformed(evt);
+            }
+        });
+
+        hireButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/contratar.png"))); // NOI18N
+        hireButton.setBorder(null);
+        hireButton.setContentAreaFilled(false);
+        hireButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hireButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -225,7 +241,11 @@ public class Game extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(159, 159, 159)
+                        .addGap(27, 27, 27)
+                        .addComponent(workButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(hireButton)
+                        .addGap(42, 42, 42)
                         .addComponent(dialoguePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -236,12 +256,19 @@ public class Game extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(eventLabel)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dialoguePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dialoguePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(eventLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(workButton)
+                            .addComponent(hireButton))
+                        .addGap(18, 18, 18))))
         );
 
         pack();
@@ -256,6 +283,12 @@ public class Game extends javax.swing.JFrame {
         SoundPlayer.playSound("src/trabalho/resources/audio/money.wav");
         
     }//GEN-LAST:event_workButtonActionPerformed
+
+    private void hireButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hireButtonActionPerformed
+        buttonAnimation(hireButton, "contratar");
+        new Contratar(player, gameStory).setVisible(true);
+      
+    }//GEN-LAST:event_hireButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,6 +330,7 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JLayeredPane dialoguePane;
     private javax.swing.JLabel employeeLabel;
     private javax.swing.JLabel eventLabel;
+    private javax.swing.JButton hireButton;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

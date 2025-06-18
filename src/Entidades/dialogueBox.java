@@ -324,7 +324,7 @@ public class dialogueBox extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void passDialogueClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passDialogueClick
-    if (passDialogue() == dialogues.size() && containsEvent) {
+    if (passDialogue() == dialogues.size()-1 && containsEvent) {
         dialogueEvent.doEvent();
     }
     }//GEN-LAST:event_passDialogueClick

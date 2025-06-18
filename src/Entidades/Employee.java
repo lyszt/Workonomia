@@ -137,7 +137,7 @@ public class Employee extends Unemployed {
     public void setWage(double wage) {
         this.wage = wage;
     }
-
+    
     
     
 }
