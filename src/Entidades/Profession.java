@@ -15,6 +15,7 @@ public abstract class Profession {
 
     public Profession(String profession, String place, double wage) {
         this.profession = profession;
+        this.wage = wage;
         this.place = place;
     }
 

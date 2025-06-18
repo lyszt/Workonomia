@@ -127,6 +127,15 @@ public class Unemployed extends Profession {
     public void setRandomActs(ArrayList<String> randomActs) {
         this.randomActs = randomActs;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     
     
 }

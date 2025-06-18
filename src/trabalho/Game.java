@@ -38,16 +38,17 @@ public class Game extends javax.swing.JFrame {
         moneyLabel.setText(player.getMoney()+" R$");
         professionLabel.setText(player.getProfession().toString());
         employeeLabel.setText(player.getEmployees().size() + " empregados");
-        GameLoop gameLoop = new GameLoop(player, this);
-        gameLoop.startGameLoop();
-        // start tutorial
-        Story gameStory = new Story(this, dialoguePane, player, gameLoop);
         
+        Story gameStory = new Story(this, dialoguePane, player);
+               
+        GameLoop gameLoop = new GameLoop(player, this, gameStory);
+        gameLoop.startGameLoop();
+        
+        // start tutorial
+        
+       
         gameStory.meetTheAntagonist();
-        if(player.getMoney() > 20){
-            gameStory.corruptionOfMen();
-
-        }
+      
 
    
         
@@ -75,6 +76,14 @@ public class Game extends javax.swing.JFrame {
 
     public void setProfessionLabel(JLabel professionLabel) {
         this.professionLabel = professionLabel;
+    }
+
+    public JLabel getEmployeeLabel() {
+        return employeeLabel;
+    }
+
+    public void setEmployeeLabel(JLabel employeeLabel) {
+        this.employeeLabel = employeeLabel;
     }
     
     

@@ -5,6 +5,8 @@
 package Entidades;
 
 import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -50,8 +52,12 @@ public class Player {
         this.employees = employees;
     }
     
-    public void addEmployee(Employee employee){
+    public void addEmployee(JFrame game, Employee employee){
         this.employees.add(employee);
+        JOptionPane.showMessageDialog(game, "Parabéns! Você contratou " 
+                + employee.getName() + ", um " 
+                + employee.getProfession() + ". Seu salário é de " + employee.getWage() 
+                + "R$, e ele gera " + employee.getProfitability() + "R$ por dia.");
     }
 
     public Profession getProfession() {

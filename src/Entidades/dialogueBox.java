@@ -10,7 +10,10 @@ import javax.swing.ImageIcon;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.Icon;
 import javax.swing.JLabel;
+import javax.swing.SwingWorker;
 /**
  *
  * @author joaoluis
@@ -23,6 +26,9 @@ public class dialogueBox extends javax.swing.JPanel {
     int skippable;
     boolean containsEvent;
     DynamicEvent dialogueEvent = null;
+    String action;
+    boolean has_set_animation = false;
+    int max_frames;
     
     /**
      * Creates new form dialogueBox
@@ -36,9 +42,71 @@ public class dialogueBox extends javax.swing.JPanel {
         dialogueField.setText(first_dialogue);
         characterName.setText(speaker);
        }
+    
+    public dialogueBox(String speaker, String first_dialogue, int skippable, ImageIcon icon) {
+        this.speaker = speaker;
+        this.skippable = skippable;
+        this.dialogues = new ArrayList<String>();
+        initComponents();
+        authorIcon.setIcon(icon);
+        this.dialogues.add(first_dialogue);
+        dialogueField.setText(first_dialogue);
+        characterName.setText(speaker);
+       }
+    
     public void setAuthorIcon(String path){
         authorIcon.setIcon(new ImageIcon(path));
     }
+    
+    public void setAnimation(String action, int max_frames){
+        has_set_animation = true;
+        this.action = action;
+        this.max_frames = max_frames;
+    }
+    
+    public void playAnimation(int repeats) {
+        final Icon originalIcon = authorIcon.getIcon();
+        new SwingWorker<Void, ImageIcon>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                // THREAD no plano de fundo pra não crashar a caixa de dialogo
+                
+                for (int i = 0; i < repeats; i++) {
+                    
+                    for (int j = 0; j < max_frames; j++) {
+                        String resourcePath = "/trabalho/resources/sprites/" + speaker.toLowerCase() + "/" + speaker.toLowerCase() + "-" + action.toLowerCase() + "-" + j + ".png";
+                        java.net.URL imageUrl = getClass().getResource(resourcePath);
+                        
+                         if (imageUrl != null) {
+                        ImageIcon nextIcon = new ImageIcon(imageUrl);
+                        publish(nextIcon); 
+                        Thread.sleep(70); 
+                    } else {
+                        System.err.println("Falha ao encontrar imagem de icone: " + resourcePath);
+                    }
+
+                    }
+                    
+                }Thread.sleep(1000);                
+                return null;
+            }
+            
+            @Override
+            protected void done() {
+                authorIcon.setIcon(originalIcon);
+            }
+            
+            
+            @Override
+            protected void process(List<ImageIcon> chunks) {
+                ImageIcon latestIcon = chunks.get(chunks.size() - 1);
+                authorIcon.setIcon(latestIcon);
+            }
+        }.execute(); 
+        
+        
+    }
+
     
     public void addDialogue(String sentence){
         dialogues.add(sentence);
@@ -65,6 +133,9 @@ public class dialogueBox extends javax.swing.JPanel {
         }
 
         dialogueIndex = nextIndex;
+        if(this.has_set_animation){
+            playAnimation(3);
+        }
         playVoice();
         return dialogueIndex;
     }
@@ -96,10 +167,6 @@ public class dialogueBox extends javax.swing.JPanel {
 
     public JLabel getAuthorIcon() {
         return authorIcon;
-    }
-
-    public void setAuthorIcon(JLabel authorIcon) {
-        this.authorIcon = authorIcon;
     }
 
     public JLabel getCharacterName() {
@@ -187,7 +254,7 @@ public class dialogueBox extends javax.swing.JPanel {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        authorIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/buttons/circle.png"))); // NOI18N
+        authorIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/sprites/jombson/jombson-normal-0.png"))); // NOI18N
 
         characterName.setText("Character name");
 
@@ -246,8 +313,8 @@ public class dialogueBox extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(authorIcon)
-                        .addGap(0, 22, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nextDialogButton)
@@ -271,6 +338,9 @@ public class dialogueBox extends javax.swing.JPanel {
                 parent.repaint(); 
             }
     }//GEN-LAST:event_skipButtonpassDialogue
+    if(containsEvent){
+        dialogueEvent.doEvent();
+    }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

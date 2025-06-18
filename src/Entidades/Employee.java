@@ -13,10 +13,12 @@ import java.util.Arrays;
  */
 public class Employee extends Unemployed {
     Player boss;
+    double profitability;
 
-    public Employee(Player boss, String place, String name, double wage) {
+    public Employee(Player boss, String place, String name, double wage, double profitability) {
         super(place, name, wage);
         this.boss = boss;
+        this.profitability = profitability;
         
          setRandomActs(new ArrayList<>(Arrays.asList(
         "tentou vender um poema sobre esperança no semáforo",
@@ -104,6 +106,39 @@ public class Employee extends Unemployed {
         this.boss = boss;
     }
 
+    public double getProfitability() {
+        return profitability;
+    }
+
+    public void setProfitability(double profitability) {
+        this.profitability = profitability;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public double getWage() {
+        return wage;
+    }
+
+    public void setWage(double wage) {
+        this.wage = wage;
+    }
+
+    
     
 }
 
