@@ -11,7 +11,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import trabalho.Game;
+import trabalho.Menu;
 /**
  *
  * @author joaoluis
@@ -38,10 +40,17 @@ public class GameLoop {
             
             mainFrame.getEmployeeLabel().setText("" + player.getEmployees().size());
             
+            // Condição de derrota
+            if(player.getMoney() < -100){
+                JOptionPane.showMessageDialog(mainFrame, "Você faliu, o jogo não pode mais continuar. Jombson venceu.");
+                System.exit(0);
+            }
             if(player.getMoney() > 20 && !completedChapters.contains(2)){
                 completedChapters.add(2);
                 gameStory.corruptionOfMen();
             }
+            
+            
         };
         scheduler.scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
     }

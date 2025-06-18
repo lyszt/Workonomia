@@ -1,17 +1,17 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package trabalho;
 
 import Entidades.Employee;
 import Entidades.NameGenerator;
 import Entidades.Player;
-import Entidades.Profession;
 import Entidades.Story;
-import Entidades.Unemployed;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,17 +19,21 @@ import javax.swing.table.DefaultTableModel;
  * @author joaoluis
  */
 public class Contratar extends javax.swing.JFrame {
-    private Player player;
-    private Story gameStory;
+    final private Player player;
+    final private Story gameStory;
+    private ArrayList<Employee> candidatosParaContratar = new ArrayList<>();
     /**
      * Creates new form Contratar
      */
+    
+    public Contratar(){
+        initComponents();
+    }
     public Contratar(Player player, Story gameStory) {
+        initComponents();
         this.player = player;
         this.gameStory = gameStory;
-        initComponents();
-        ArrayList<Employee> candidatosParaContratar = new ArrayList<>();
-    
+        
         DefaultTableModel model = (DefaultTableModel) hiringTable.getModel();
         model.setRowCount(0);
 
@@ -43,8 +47,8 @@ public class Contratar extends javax.swing.JFrame {
         String employeeName = NameGenerator.getRandomName();
         String place = NameGenerator.getRandomPlace();
 
-        double wage = 5 + randomStats.nextInt(50); // Salário entre 5 e 54.
-        double profitability = wage + 2 + randomStats.nextInt(30); // Lucratividade é sempre maior que o salário.
+        double wage = 5 + randomStats.nextInt(10 * gameStory.getCurrentChapter()); // Salário entre 5 e 54.
+        double profitability = randomStats.nextInt(((int) wage)  * 2); 
 
         Employee candidate = new Employee(player, place, employeeName, wage, profitability);
         candidatosParaContratar.add(candidate);
@@ -53,8 +57,6 @@ public class Contratar extends javax.swing.JFrame {
         model.addRow(new Object[]{professionTitle, candidate.getWage(), candidate.getProfitability()});
     }
 }
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,6 +69,10 @@ public class Contratar extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         hiringTable = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Janela de contratos");
 
         hiringTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,27 +87,98 @@ public class Contratar extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(hiringTable);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        jButton1.setText("Contratar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
+
+        pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int selectedViewRow = hiringTable.getSelectedRow();
+
+    if (selectedViewRow != -1) {
+        
+        int modelRow = hiringTable.convertRowIndexToModel(selectedViewRow);
+        Employee candidatoSelecionado = this.candidatosParaContratar.get(modelRow);
+        player.setMoney(player.getMoney() - 10 * candidatoSelecionado.getWage());
+        player.addEmployee(this, candidatoSelecionado); 
+        
+
+    } else {
+        // Se nenhuma linha foi selecionada, avisa o usuário.
+        JOptionPane.showMessageDialog(this, 
+                "Por favor, selecione um candidato na lista para contratar.", 
+                "Nenhum Candidato Selecionado", 
+                JOptionPane.WARNING_MESSAGE);
+    }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Contratar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Contratar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Contratar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Contratar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Contratar().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable hiringTable;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
