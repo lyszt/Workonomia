@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -101,9 +102,7 @@ public class Menu extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabalho/resources/images/workonomia.png"))); // NOI18N
 
-        emailField.setForeground(new java.awt.Color(153, 153, 153));
-        emailField.setText("Coloque seu e-mail");
-        emailField.setBorder(null);
+        emailField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         emailField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailFieldActionPerformed(evt);
@@ -282,6 +281,7 @@ public class Menu extends javax.swing.JFrame {
             requestEntity,
             String.class
         );
+        System.out.println(response.getStatusCode());
         
         if (response.getStatusCode() == HttpStatus.ACCEPTED || response.getStatusCode() == HttpStatus.OK) {
             stopBackgroundMusic();
@@ -289,18 +289,22 @@ public class Menu extends javax.swing.JFrame {
             gameLoop.setVisible(true);
             this.dispose();
         }
-        if (response.getStatusCode() == HttpStatus.UNAUTHORIZED){
-            errorLabel.setVisible(true);
-        }
-  
         
-    } catch (HttpClientErrorException e) {
+    } catch (ResourceAccessException e) {
+        errorLabel.setVisible(true);
+    }
+        
+    catch (HttpClientErrorException e) {
         String erroDoServidor = e.getResponseBodyAsString();
         JOptionPane.showMessageDialog(this, "Ocorreu um erro: " + erroDoServidor);
     }
     catch(RestClientException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
             e.printStackTrace();
+    }
+    catch(Exception e ){
+        errorLabel.setVisible(true);
+        e.printStackTrace();
     }
         }
     }//GEN-LAST:event_startButtonActionPerformed
