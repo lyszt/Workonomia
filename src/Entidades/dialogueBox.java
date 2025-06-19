@@ -19,16 +19,16 @@ import javax.swing.SwingWorker;
  * @author joaoluis
  */
 public class dialogueBox extends javax.swing.JPanel {
-    ArrayList<String> dialogues;
-    int dialogueIndex;
-    String speaker;
-    String soundPath;
-    int skippable;
-    boolean containsEvent;
-    DynamicEvent dialogueEvent = null;
-    String action;
-    boolean has_set_animation = false;
-    int max_frames;
+    private ArrayList<String> dialogues;
+    private int dialogueIndex;
+    private String speaker;
+    private String soundPath;
+    private int skippable;
+    private boolean containsEvent;
+    private DynamicEvent dialogueEvent = null;
+    private String action;
+    private boolean has_set_animation = false;
+    private int max_frames;
     
     /**
      * Creates new form dialogueBox
@@ -87,7 +87,7 @@ public class dialogueBox extends javax.swing.JPanel {
 
                     }
                     
-                }Thread.sleep(1000);                
+                }Thread.sleep(1000);                      
                 return null;
             }
             
