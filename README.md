@@ -1,4 +1,4 @@
 # Workonomia
 
 Workonomia é um simulador de gerenciamento econômico desenvolvido em Java com a biblioteca Swing, focado na gestão de recursos e otimização de sistemas. O jogador inicia com capital zero e progride de uma fase de geração de renda manual para um modelo de renda passiva, baseado na contratação e gestão de uma equipe de funcionários. Cada funcionário é uma entidade com atributos próprios de custo (salário) e rentabilidade, e o objetivo é escalar a operação equilibrando a folha de pagamento com a receita gerada. A dinâmica é governada por um game loop que processa os ciclos de lucro, 
-aplica um sistema de imposto progressivo e introduz eventos aleatórios, como flutuações de custos, que exigem adaptação estratégica do jogador para evitar a condição de falência por saldo negativo.
+aplica um sistema de imposto progressivo e introduz eventos aleatórios, como flutuações de custos, que exigem adaptação estratégica do jogador para evitar a condição de falência por saldo negativo;
