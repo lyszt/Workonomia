@@ -117,7 +117,7 @@ public class Unemployed extends Profession {
      */
     @Override
     public String doJobActivity() {
-        return this.name + " " + randomVerb() + " em " + this.place + ".";
+        return this.name + " " + randomVerb() + " em " + this.getPlace() + ".";
     }
 
     public ArrayList<String> getRandomActs() {

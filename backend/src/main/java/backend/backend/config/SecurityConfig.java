@@ -1,4 +1,4 @@
-package backend.backend.config; // Make sure this package name matches yours
+package backend.backend.config; 
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

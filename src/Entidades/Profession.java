@@ -9,8 +9,8 @@ package Entidades;
  * @author joaoluis
  */
 public abstract class Profession {
-    String profession;
-    String place;
+    private String profession;
+    private String place;
     double wage;
 
     public Profession(String profession, String place, double wage) {

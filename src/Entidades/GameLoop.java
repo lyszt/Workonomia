@@ -73,7 +73,7 @@ public class GameLoop {
             
             player.getEmployees().forEach(employee -> {
                 employee.doJobActivity();
-                double lucroLiquido = employee.profitability - employee.wage;
+                double lucroLiquido = employee.getProfitability() - employee.getWage();
                 String pos_neg = lucroLiquido > 0 ? "+" : "-";
                 
                 double impostoDevido = 0;

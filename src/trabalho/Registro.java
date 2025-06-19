@@ -28,9 +28,9 @@ public class Registro extends javax.swing.JFrame {
     /**
      * Creates new form Registro
      */
-    String email = "";
-    String name = "";
-    String password = "";
+    private String email = "";
+    private String name = "";
+    private String password = "";
     
     
     public Registro() {

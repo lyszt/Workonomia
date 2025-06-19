@@ -12,8 +12,8 @@ import java.util.Arrays;
  * @author joaoluis
  */
 public class Employee extends Unemployed {
-    Player boss;
-    double profitability;
+    private Player boss;
+    private double profitability;
 
     public Employee(Player boss, String place, String name, double wage, double profitability) {
         super(place, name, wage);
@@ -115,19 +115,19 @@ public class Employee extends Unemployed {
     }
 
     public String getProfession() {
-        return profession;
+        return this.getProfession();
     }
 
     public void setProfession(String profession) {
-        this.profession = profession;
+        this.setProfession(profession);
     }
 
     public String getPlace() {
-        return place;
+        return this.getPlace();
     }
 
     public void setPlace(String place) {
-        this.place = place;
+        this.setPlace(place);
     }
 
     public double getWage() {

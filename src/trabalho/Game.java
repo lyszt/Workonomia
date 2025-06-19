@@ -22,8 +22,8 @@ public class Game extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
-    Player player;
-    Story gameStory;
+    private Player player;
+    private Story gameStory;
     
     public Game() {
         initComponents();

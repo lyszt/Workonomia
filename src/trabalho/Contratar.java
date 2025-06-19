@@ -19,8 +19,9 @@ import javax.swing.table.DefaultTableModel;
  * @author joaoluis
  */
 public class Contratar extends javax.swing.JFrame {
-    final private Player player;
-    final private Story gameStory;
+    
+    Player player = null;
+    private Story gameStory = null;
     private ArrayList<Employee> candidatosParaContratar = new ArrayList<>();
     /**
      * Creates new form Contratar
