@@ -101,7 +101,7 @@ public class GameLoop {
                 SoundPlayer.playSound("src/trabalho/resources/audio/money.wav");
             });
         };
-        scheduler.scheduleAtFixedRate(task, 0, 10, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(task, 0, 4, TimeUnit.SECONDS);
     }
 
     public void stop() {

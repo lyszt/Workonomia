@@ -129,7 +129,7 @@ public class Contratar extends javax.swing.JFrame {
         int modelRow = hiringTable.convertRowIndexToModel(selectedViewRow);
         Employee candidatoSelecionado = this.candidatosParaContratar.get(modelRow);
         double price = player.getMoney() * (candidatoSelecionado.getWage())/100;
-        if(player.getMoney() < price){
+        if(player.getMoney() > price){
             player.setMoney(player.getMoney() - price);
             player.addEmployee(this, candidatoSelecionado);
             this.dispose();
