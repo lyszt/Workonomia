@@ -6,6 +6,7 @@ package Entidades;
 
 import Sound.SoundPlayer;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -57,16 +58,50 @@ public class GameLoop {
     
     public void startEmployeeWorkLoop() {
         Runnable task = () -> {
+            if (player.getEmployees().isEmpty()) {
+                return;
+            }
+            Random random = new Random();
+            if(random.nextInt(50) == 5){
+                int choice_i = random.nextInt(player.getEmployees().size());
+                Employee chosenEmployee = player.getEmployees().get(choice_i);
+                double newWage = (chosenEmployee.getWage()) + random.nextDouble((chosenEmployee.getWage()) * 2.0);
+                JOptionPane.showMessageDialog(mainFrame, chosenEmployee.getName() + " pediu um aumento! Agora ele receberá "
+                        + newWage + "R$!");
+                chosenEmployee.setWage(newWage);
+            }
+            
             player.getEmployees().forEach(employee -> {
                 employee.doJobActivity();
-                player.addMoney(employee.profitability);
-                player.setMoney(player.getMoney() - employee.wage);
+                double lucroLiquido = employee.profitability - employee.wage;
+                String pos_neg = lucroLiquido > 0 ? "+" : "-";
+                
+                double impostoDevido = 0;
+                if (lucroLiquido > 0) {
+                    double taxaDeImposto;
+                    if (lucroLiquido > 1000) {
+                        taxaDeImposto = 0.40; 
+                    } else if (lucroLiquido > 300) {
+                        taxaDeImposto = 0.25; 
+                    } else {
+                        taxaDeImposto = 0.10; 
+                    }
+                impostoDevido = lucroLiquido * taxaDeImposto;
+                }
+                lucroLiquido -= impostoDevido;
+        
+                mainFrame.getLucroLabel().setText(pos_neg + " " + lucroLiquido + "R$");
+                mainFrame.getLucroLabel().setVisible(true);
+                
+          
+                
+                player.setMoney(player.getMoney() + lucroLiquido);
                 mainFrame.getEventLabel().setText(employee.doJobActivity());
                 mainFrame.getMoneyLabel().setText(player.getMoney() + " R$");
                 SoundPlayer.playSound("src/trabalho/resources/audio/money.wav");
             });
         };
-        scheduler.scheduleAtFixedRate(task, 0, 3, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(task, 0, 10, TimeUnit.SECONDS);
     }
 
     public void stop() {

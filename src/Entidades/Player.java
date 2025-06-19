@@ -57,7 +57,7 @@ public class Player {
         JOptionPane.showMessageDialog(game, "Parabéns! Você contratou " 
                 + employee.getName() + ", um " 
                 + employee.getProfession() + ". Seu salário é de " + employee.getWage() 
-                + "R$, e ele gera " + employee.getProfitability() + "R$ por dia.");
+                + "R$, e ele gera " + employee.getProfitability() + "R$ por dia. Impostos foram deduzidos.");
     }
 
     public Profession getProfession() {

@@ -27,7 +27,8 @@ public class Game extends javax.swing.JFrame {
     
     public Game() {
         initComponents();
-        //hireButton.setVisible(false);
+        hireButton.setVisible(false);
+        lucroLabel.setVisible(false);
         System.out.println(System.getProperty("user.dir"));
         SoundPlayer.playSound("./src/trabalho/resources/audio/menu.wav");
         String name = null;
@@ -96,6 +97,14 @@ public class Game extends javax.swing.JFrame {
     public void setHireButton(JButton hireButton) {
         this.hireButton = hireButton;
     }
+
+    public JLabel getLucroLabel() {
+        return lucroLabel;
+    }
+
+    public void setLucroLabel(JLabel lucroLabel) {
+        this.lucroLabel = lucroLabel;
+    }
     
     
     
@@ -132,6 +141,7 @@ public class Game extends javax.swing.JFrame {
         eventLabel = new javax.swing.JLabel();
         workButton = new javax.swing.JButton();
         hireButton = new javax.swing.JButton();
+        lucroLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Workonomia: Simulador de trabalho");
@@ -232,6 +242,8 @@ public class Game extends javax.swing.JFrame {
             }
         });
 
+        lucroLabel.setText("+0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -249,7 +261,10 @@ public class Game extends javax.swing.JFrame {
                         .addComponent(dialoguePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(eventLabel)))
+                        .addComponent(eventLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lucroLabel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -264,6 +279,8 @@ public class Game extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(eventLabel)
+                        .addGap(67, 67, 67)
+                        .addComponent(lucroLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(workButton)
@@ -336,6 +353,7 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lucroLabel;
     private javax.swing.JLabel moneyLabel;
     private javax.swing.JLabel professionLabel;
     private javax.swing.JButton workButton;

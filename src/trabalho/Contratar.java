@@ -54,7 +54,7 @@ public class Contratar extends javax.swing.JFrame {
         candidatosParaContratar.add(candidate);
 
         // Adiciona a linha na tabela para exibição.
-        model.addRow(new Object[]{professionTitle, candidate.getWage(), candidate.getProfitability()});
+        model.addRow(new Object[]{candidate.getName(), professionTitle, candidate.getWage(), candidate.getProfitability(), ((int) player.getMoney() * (candidate.getWage())/100)});
     }
 }
 
@@ -76,13 +76,13 @@ public class Contratar extends javax.swing.JFrame {
 
         hiringTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Profissão", "Salário", "Profitabilidade"
+                "Nome", "Profissão", "Salário", "Profitabilidade", "Preço p/contratar"
             }
         ));
         jScrollPane1.setViewportView(hiringTable);
@@ -101,7 +101,7 @@ public class Contratar extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1)))
@@ -128,10 +128,17 @@ public class Contratar extends javax.swing.JFrame {
         
         int modelRow = hiringTable.convertRowIndexToModel(selectedViewRow);
         Employee candidatoSelecionado = this.candidatosParaContratar.get(modelRow);
-        player.setMoney(player.getMoney() - 10 * candidatoSelecionado.getWage());
-        player.addEmployee(this, candidatoSelecionado); 
+        double price = player.getMoney() * (candidatoSelecionado.getWage())/100;
+        if(player.getMoney() < price){
+            player.setMoney(player.getMoney() - price);
+            player.addEmployee(this, candidatoSelecionado);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "Você não tem dinheiro para contratar esse funcionário.");
+        }
         
-
+        
     } else {
         // Se nenhuma linha foi selecionada, avisa o usuário.
         JOptionPane.showMessageDialog(this, 
