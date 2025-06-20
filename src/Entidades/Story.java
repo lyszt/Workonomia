@@ -82,7 +82,6 @@ public class Story {
     
  public void corruptionOfMen(){
      this.currentChapter = 2;
-    // A primeira fala já estabelece o tom "de boa" e observador do Pedrinho.
     dialogueBox act2 = new dialogueBox(
         "Pedrinho, a Capivara",
         "(Uma capivara, de boa, te olha piscando lentamente.) E aí, chefe. Suave? Pô, tô vendo que o dia pra você tá bom, né? Não teria como descolar um trocado aí pra ajudar no corre?",
@@ -95,17 +94,14 @@ public class Story {
         main.getHireButton().setVisible(true);
     });
 
-    // As falas do jogador (narradas) permanecem, mostrando a sua transformação.
     act2.addDialogue("(Você para. A voz mansa dele te atinge, mas são as palavras de Jombson que ecoam na sua mente. Você olha para os 50 reais na sua mão, sentindo o peso deles. Um poder que você não tinha antes.)");
     act2.addDialogue("(Lentamente, você ergue o olhar para o bicho. Um sorriso torto, um que não pertence a você, se forma em seus lábios. Você balança a cabeça em uma negativa lenta e definitiva.)");
 
-    // A reação do Pedrinho não é de desespero, mas de confusão genuína, como se a recusa fosse algo que quebra a ordem natural das coisas.
     act2.addDialogue("(O bicho pisca de novo, meio confuso, como se você tivesse falado uma língua estranha.) Puts... como assim, \"não\"? É só uma ajuda, tipo... pra não ficar boiando aqui, tá ligado?");
 
     act2.addDialogue("(Você o ignora e caminha até uma parede suja. Com um pedaço de carvão, você não escreve uma tarefa, mas sim um modelo de negócio. As letras são tortas e agressivas.)");
     act2.addDialogue("'FAÇA O QUE EU FAÇO. PEDIR. VENDER. O QUE FOR. METADE É MINHA.'");
 
-    // Ele tenta entender a lógica, de forma bem literal.
     act2.addDialogue("(Ele inclina a cabeça, lendo o carvão com zero entendimento.) \"Metade é minha\"... tá, metade do quê? E... o que é que cê faz, exatamente?");
 
     act2.addDialogue("(Você olha ao redor, pega três pedras de tamanhos diferentes do chão e começa um malabarismo patético e desajeitado. Duas caem imediatamente. Você as pega e estende a mão vazia, como se pedisse um trocado pela 'performance'.)");
@@ -120,7 +116,6 @@ public class Story {
     act2.addDialogue("(A mensagem final é brutalmente clara. Não há mais dúvidas.)");
     act2.addDialogue("(Ele finalmente fecha os dedos ao redor da nota, o olhar de quem aceitou um novo e esquisito fluxo pro rio da vida.)");
 
-    // A aceitação final é uma reinterpretação do conceito de "empregado" para algo que a mente dele consegue processar: uma sociedade.
     act2.addDialogue("...Ah... saquei. Tipo... eu faço o corre, e uma parte da firma é sua. Um... sócio, né? ...Tá bom, então. Fechou. Eu topo.");
 
     act2.addDialogue("(Você assente uma vez, satisfeito. Você não criou apenas um empregado. Você monetizou a paz de espírito de uma capivara. Você se vira e vai embora, deixando para trás o seu novo e trágico reflexo.)");
