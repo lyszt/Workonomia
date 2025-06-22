@@ -14,3 +14,8 @@ aplica um sistema de imposto progressivo e introduz eventos aleatórios, como fl
 ## Undertale
 
 ![0dc2091cfa35282dc0a2f3bd570c9932](https://github.com/user-attachments/assets/7b7e1824-3211-4a92-bc7a-054aedfa6464)
+
+## Capitalism Lab
+
+![products_new_s](https://github.com/user-attachments/assets/652caad6-1f34-476c-b4df-f9e55ee52360)
+
