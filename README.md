@@ -6,4 +6,11 @@ aplica um sistema de imposto progressivo e introduz eventos aleatórios, como fl
 --- 
 
 # Inspirações visuais
+
+## World of Warcraft
 ![37b3d516700e04e30258a86db4241a28](https://github.com/user-attachments/assets/eeae4750-8580-4ee6-8b82-4170941e1d89)
+
+
+## Undertale
+
+![0dc2091cfa35282dc0a2f3bd570c9932](https://github.com/user-attachments/assets/7b7e1824-3211-4a92-bc7a-054aedfa6464)
